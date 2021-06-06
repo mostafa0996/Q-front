@@ -1,0 +1,98 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 categories" id="deals">
+    <h1>Contact Us</h1>
+    <form [formGroup]="filterForm" class="w-100-p filter-search">
+        <mat-form-field class="w-25-p  filter">
+            <input (keyup)="pagination.tag = $event.target.value;applyFilter()" matInput placeholder="Search By Title">
+        </mat-form-field>
+        <div class="mx-8">
+            <mat-form-field>
+                <mat-label> Date From</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="startDate" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="mx-8">
+            <mat-form-field>
+                <mat-label> Date To</mat-label>
+                <input matInput [matDatepicker]="pickerend" formControlName="endDate" readonly>
+                <mat-datepicker-toggle matSuffix [for]="pickerend"></mat-datepicker-toggle>
+                <mat-datepicker #pickerend></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <button aria-label="EDIT" class="submit-button float-right w-100-p " color="accent" mat-raised-button
+                    (click)="applyFilter()">
+                Apply Filter
+            </button>
+        </div>
+        <div class="mx-16">
+            <app-export-excel [type]="'feedback'" [pagination]="pagination"></app-export-excel>
+        </div>
+
+    </form>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table
+    matSort matSortActive="date" matSortDisableClear matSortDirection="desc" (matSortChange)="sort($event)">
+
+
+        <ng-container matColumnDef="name" class="">
+            <th *matHeaderCellDef mat-header-cell> Name</th>
+            <td *matCellDef="let element" mat-cell> {{element.name}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="companyname" class="">
+            <th *matHeaderCellDef mat-header-cell>Company</th>
+            <td *matCellDef="let element" mat-cell> {{element.companyname}}  </td>
+        </ng-container>
+        <ng-container matColumnDef="phone" class="">
+            <th *matHeaderCellDef mat-header-cell>Phone</th>
+            <td *matCellDef="let element" mat-cell> {{element.phone}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email" class="">
+            <th *matHeaderCellDef mat-header-cell>Email</th>
+            <td *matCellDef="let element" mat-cell> {{element.email}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numberofvehicles" class="">
+            <th *matHeaderCellDef mat-header-cell>Number of vehicles</th>
+            <td *matCellDef="let element" mat-cell> {{element.numberofvehicles}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ordersperday" class="">
+            <th *matHeaderCellDef mat-header-cell>Orders per day</th>
+            <td *matCellDef="let element" mat-cell> {{element.ordersperday}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city" class="">
+            <th *matHeaderCellDef mat-header-cell>City</th>
+            <td *matCellDef="let element" mat-cell> {{element.cityObj.title_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type" class="">
+            <th *matHeaderCellDef mat-header-cell>Type</th>
+            <td *matCellDef="let element" mat-cell>
+               <span *ngIf="element.type === 1 "> Courier</span>
+               <span *ngIf="element.type === 2 "> E_Commerce</span>
+               <span *ngIf="element.type === 3 "> Customer</span>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="date" class="">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header disableClear>Date</th>
+            <td *matCellDef="let element" mat-cell> {{element.createdAt | date: 'dd/MM/yyyy'}}  </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" [pageSizeOptions]="[10,25,50,100,200]" (click)="getFeedbacks()"
+                   [pageSize]="pagination.limit"
+                   (page)="pageEvent = $event;getFeedbacks()"
+    >
+    </mat-paginator>
+
+
+
+
+</div>

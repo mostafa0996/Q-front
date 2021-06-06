@@ -1,0 +1,73 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed">
+
+    <div id="" class="edit-dialog" fxLayout="row wrap">
+        <form name="providerForm" class=" flex-column   my-10" [formGroup]="costForm" novalidate>
+            <h1 *ngIf="data">Edit Cost</h1>
+            <h1 *ngIf="!data">New Cost</h1>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>From City</mat-label>
+                    <mat-select formControlName="from">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let item of cities" [value]="item._id">{{item.title_en}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        City is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>To City</mat-label>
+                    <mat-select formControlName="to">
+                        <mat-option>None</mat-option>
+                        <mat-option *ngFor="let item of cities" [value]="item._id">{{item.title_en}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        City is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                        <mat-label>Select Category</mat-label>
+                        <mat-select formControlName="category">
+                            <mat-option>None</mat-option>
+                            <mat-option *ngFor="let item of categories"
+                                        [value]="item._id">{{item.title_en}}</mat-option>
+                        </mat-select>
+                    <mat-error>
+                        City required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>Cost</mat-label>
+                    <input matInput formControlName="cost" type="number" >
+                    <mat-error>
+                        Cost is required
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="col-md-12 mt-48">
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data"
+                            [disabled]="costForm.invalid "
+                            (click)="onSubmit()">
+                        Save
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="!data"
+                            [disabled]="costForm.invalid "
+                            (click)="addNewCost()">
+                        Add
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button mx-8" aria-label="ADD"
+                            (click)="close()">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

@@ -1,0 +1,8 @@
+agm-map {
+    height: 40rem;
+    width: 40rem;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix, .mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: -1px !important;
+}

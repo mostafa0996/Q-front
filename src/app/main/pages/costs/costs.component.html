@@ -1,0 +1,61 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 categories" id="deals">
+    <h1>Cost</h1>
+    <div class="w-100-p">
+        <mat-form-field class="w-25-p p-16 filter">
+            <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search By Title">
+        </mat-form-field>
+
+        <button aria-label="EDIT" class="submit-button float-right add-button" color="accent" mat-raised-button
+                (click)="openAddDialog()">
+            <img src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Country
+        </button>
+    </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="from" class="">
+            <th *matHeaderCellDef mat-header-cell> From</th>
+            <td *matCellDef="let element" mat-cell> {{element.fromObj.title_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="to" class="">
+            <th *matHeaderCellDef mat-header-cell>To</th>
+            <td *matCellDef="let element" mat-cell> {{element.toObj.title_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category" class="">
+            <th *matHeaderCellDef mat-header-cell>Category</th>
+            <td *matCellDef="let element" mat-cell> {{element.categoryObj.title_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cost" class="">
+            <th *matHeaderCellDef mat-header-cell>Cost</th>
+            <td *matCellDef="let element" mat-cell> {{element.cost}}  </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="element.active == 0">Inactive</span>
+                <span class="active" *ngIf="element.active == 1">Active</span>
+            </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell class="py-8 action">
+                <img src="assets/icons/table/edit.png" aria-label="details"  class=" mx-4 my-4" color="accent" title="edit"
+                (click)="openEditDialog(element)">
+
+                <img src="assets/icons/table/delete.png" aria-label="details"  class=" mx-4 my-4" color="accent" title="delete"
+                (click)="confirmeRemove(element)">
+            </td>
+        </ng-container>
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+
+</div>

@@ -1,0 +1,46 @@
+.filter-search{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.filter{
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+
+
+    div{
+        margin: 0 10px;
+    }
+}
+
+.filter-search{
+    button{
+        width: 20rem;
+    }
+}
+
+tr , td{
+    padding:0 10px !important;
+}
+
+.supplier{
+    .table{
+        button{
+            width: 9rem;
+        }
+
+        img{
+            width: 8rem;
+        }
+    }
+
+    .action {
+        img {
+            width: 3rem !important;
+            cursor: pointer;
+
+        }
+    }
+}

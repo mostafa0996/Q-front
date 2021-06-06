@@ -1,0 +1,107 @@
+<div class="p-24 w-100-p supplier-details" id="about" *ngIf="supplier">
+    <h1 *ngIf="supplier.role == 'company'">Courier Details</h1>
+    <h1 *ngIf="supplier.role == 'ecommerce'">E_commerce Details</h1>
+    <!--    <a  *ngIf="user?.deals.length > 0"   routerLink="/pages/deals/{{user?.user_admin_id}}"><h3>Go To Deals's Service Provider</h3></a>-->
+
+    <div class="about-content">
+        <div class="profile-box info-box general mb-16" fxLayout="column">
+            <header class="options" *ngIf="supplier">
+                <div class="title border-bottom"><h2>Owner Information</h2></div>
+                <div class="content mt-16 pl-16">
+                    <div class="info-line">
+                        <div class="title ">Name:</div>
+                        <div class="info ml-16">{{supplier?.first_name}} {{supplier?.last_name}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Email:</div>
+                        <div class="info ml-16">{{supplier?.email}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Mobile:</div>
+                        <div class="info ml-16">{{supplier?.phone}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Designation:</div>
+                        <div class="info ml-16">{{supplier?.designation}}</div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Status:</div>
+                        <div class="info ml-16">
+                            <span *ngIf="supplier.active == 1" class="active">Verified</span>
+                            <span *ngIf="supplier.active == 0" class="unactive">Not Verified</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="profile-box info-box general" fxLayout="column">
+            <header class="options" *ngIf="supplier">
+                <div class="title border-bottom"><h2>Company Information</h2></div>
+                <div class="content mt-16 pl-16">
+                    <div class="info-line" *ngIf="supplier.company_name">
+                        <div class="title ">Company Name</div>
+                        <div class="info ml-16">{{supplier.company_name}}</div>
+                    </div>
+                    <div class="info-line " *ngIf="supplier?.website">
+                        <div class="title ">Website:</div>
+                        <div class="info ml-16"><a target="_blank" [href]="supplier.website">{{supplier.website}}</a>
+                        </div>
+                    </div>
+                    <div class="info-line " *ngIf="supplier.city">
+                        <div class="title ">City:</div>
+                        <div class="info ml-16">{{supplier.cityObj.title}}</div>
+                    </div>
+                    <div class="info-line my-24" *ngIf="supplier.locationText">
+                        <div class="title "> Area:</div>
+                        <div class="info ml-16">{{supplier.locationText}}</div>
+                    </div>
+                    <div class="info-line" *ngIf="supplier.categories.length">
+                        <div class="title ">Categories:</div>
+                        <div class="info ml-16">
+                            <span *ngFor="let item of supplier.categoryWithVechiles">{{item.categoryObj.title}} ({{item.countOfVechiles}}), </span>
+                        </div>
+                    </div>
+
+                    <div class="info-line">
+                        <div class="title ">Trade Licence Issue Date:</div>
+                        <div class="info ml-16">
+                            {{supplier.date_issue_licences | date: 'MMM/dd/yyyy'}}
+                        </div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Trade Licence Expired Date:</div>
+                        <div class="info ml-16">
+                            {{supplier.date_expired_licences | date: 'MMM/dd/yyyy'}}
+                        </div>
+                    </div>
+                    <div class="info-line">
+                        <div class="title ">Trade Licence:</div>
+                        <div class="info ml-16"><a [href]="restService.baseUrlDoc+ supplier.trade_licence"
+                                                   target="_blank">Click here to open trade licence</a></div>
+                    </div>
+
+                    <div>
+                        <button aria-label="details"  class="submit-button w-25-p mr-16"  [routerLink]="'/pages/orders/' + supplier._id"
+                                color="accent"
+                                mat-raised-button>
+                            Shipments
+                        </button>
+                        <button aria-label="details" *ngIf="supplier?.active != 0" class="submit-button w-25-p mr-16"
+                                color="accent"
+                                mat-raised-button (click)="confirmeApprove(0)">
+                            Inactive
+                        </button>
+                        <button aria-label="details" *ngIf="supplier?.active == 0" class="submit-button w-25-p mr-16"
+                                color="accent"
+                                mat-raised-button (click)="confirmeApprove(1)">
+                            Active
+                        </button>
+                    </div>
+
+                </div>
+            </header>
+
+
+        </div>
+    </div>
+</div>

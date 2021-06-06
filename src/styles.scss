@@ -1,0 +1,253 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+// Import app.theme.scss
+@import "app/app.theme";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+
+::ng-deep td, th {
+    padding: 0 10px !important;
+}
+
+
+.submit-button {
+    height: 5rem;
+}
+
+.upload-file {
+    margin-bottom: 5rem;
+}
+
+.image-preview {
+    margin-top: 2rem;
+}
+
+.required-star {
+    color: red;
+}
+
+.star {
+    color: red;
+}
+
+::-webkit-file-upload-button {
+    background: cornflowerblue;
+    padding: 1em;
+    border-radius: 5px;
+    border: none;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.active {
+    color: green;
+}
+
+.unactive {
+    color: red;
+}
+
+.pending {
+    color: orange;
+}
+
+.process {
+    color: blue;
+}
+
+.add-button {
+    width: 20rem;
+}
+
+.float-right {
+    float: right;
+}
+
+.icone-plus {
+    width: 4rem !important;
+}
+
+
+.icon {
+    width: 5rem !important;
+    padding: 5px;
+}
+
+.star {
+    color: red;
+}
+
+
+agm-map {
+    height: 400px;
+}
+
+.autocomplete-container {
+    padding: 1rem 0 1rem 0;
+    width: 50%;
+}
+
+.map {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-danger {
+    color: red
+}
+
+
+.action {
+    width: 10rem !important;
+}
+
+.upload {
+    background-color: #039be5;
+    border: 0;
+    border-radius: 6px;
+    padding: 10px;
+    color: white;
+    width: 12rem;
+}
+
+.edit-dialog {
+    max-height: 50rem;
+    height: auto;
+    overflow: auto;
+}
+
+
+.flex-start {
+    display: flex;
+    justify-content: start;
+    width: 50%;
+
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.image-element {
+    width: 8rem;
+}
+
+.address {
+    height: 4rem;
+    width: 40rem;
+    border: 1px solid;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.filter-search {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+.upload-button {
+    width: 12rem;
+}
+
+
+@media(max-width: 600px) {
+
+    .ios-scroll {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    navbar navbar-vertical-style-1 .navbar-scroll-container {
+        overflow-x: hidden !important;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px 0;
+
+        .mat-table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            display: table;
+            border-collapse: collapse;
+            margin: 0px;
+        }
+
+        .mat-row,
+        .mat-header-row {
+            display: table-row;
+        }
+
+        .mat-cell,
+        .mat-header-cell {
+            word-wrap: initial;
+            display: table-cell;
+            padding: 0px 5px;
+            line-break: unset;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+    }
+}
+
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.pagination-list {
+    display: flex;
+    div {
+        margin: 5px;
+        border: 1px solid;
+        width: 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .active{
+        background: #bfc7d0;
+    }
+}
+
+.action {
+    img {
+        width: 3rem !important;
+        cursor: pointer;
+
+    }
+}

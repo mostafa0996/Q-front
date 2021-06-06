@@ -1,0 +1,52 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed">
+    <div class="close" style="cursor: pointer" (click)="dialogRef.close()"><mat-icon>cancel</mat-icon></div>
+
+    <div id="" class="" fxLayout="row wrap">
+        <div class="w-100-p">
+    </div>
+        <table [dataSource]="dataSource" class=" w-100-p p-16" mat-table>
+
+            <!-- Position Column -->
+
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th *matHeaderCellDef mat-header-cell> Name</th>
+                <td *matCellDef="let element" mat-cell> {{element.first_name}} {{element.last_name}}</td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="email">
+                <th *matHeaderCellDef mat-header-cell> Email</th>
+                <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+            </ng-container>
+
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action">
+                <th *matHeaderCellDef mat-header-cell> Action</th>
+                <td *matCellDef="let element" mat-cell class="py-8">
+                    <button aria-label="details" *ngIf="!data || data.driverObj?._id !== element._id" class="submit-button mx-4 my-4" color="accent" (click)="assignDriver(element)"
+                            mat-raised-button >
+                        Assign
+                    </button>
+                    <button aria-label="details" *ngIf="data && data?.driverObj?._id == element._id" class="submit-button mx-4 my-4" color=""
+                            mat-raised-button >
+                        Assigned
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+        </table>
+
+
+
+
+
+    </div>
+
+
+</div>

@@ -1,0 +1,322 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 ios-scroll" id="deals">
+
+    <div id="" class="" fxLayout="row wrap">
+        <form name="providerForm" class="mat-elevation-z8 table-responsive w-100-p p-16" *ngIf="role === 'company'" [formGroup]="UserForm" novalidate>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="first_name">
+                    <mat-error>
+                        First Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="last_name">
+                    <mat-error>
+                        Arabic Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" >
+                    <mat-error>
+                        Email is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Mobile number</mat-label>
+                    <span matPrefix>+971 &nbsp;</span>
+                    <input matInput formControlName="phone" placeholder="554 5***"  type="tel" maxlength="9">
+                    <mat-error>
+                        Mobile number is incorrect
+                    </mat-error>
+                </mat-form-field>
+                <div class="verification mb-3 text-primary" (click)="sendOTP()" *ngIf="phone != f.phone.value && !f.phone.errors"><a>Send VerificationCode</a></div>
+
+                <mat-form-field appearance="outline" class="w-100-p" *ngIf="phone != f.phone.value && !f.phone.errors">
+                    <mat-label>Verification code</mat-label>
+                    <input matInput placeholder="" formControlName="otp" maxlength="4">
+                    <mat-icon matSuffix>vpn_key</mat-icon>
+                    <div *ngIf="UserForm.get('otp').hasError('required')">
+                        Verification code id required
+                    </div>
+                </mat-form-field>
+
+
+
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Designation</mat-label>
+                    <input matInput formControlName="designation" >
+                    <mat-error>
+                        Designation is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Company name</mat-label>
+                    <input matInput formControlName="company_name" >
+                    <mat-error>
+                        Company name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Categories</mat-label>
+                    <mat-select formControlName="list_categories" multiple>
+                        <mat-select-trigger>
+                            {{f.list_categories.value ? f.list_categories.value[0] : ''}}
+                            <span *ngIf="f.list_categories.value?.length > 1" class="example-additional-selection">
+        (+{{f.list_categories.value.length - 1}} {{f.list_categories.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let item of categories" (onSelectionChange)="addControl($event , item)"
+                                    [value]="item.title_en">{{item.title_en}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100-p" *ngFor="let item of f.list_categories.value">
+                    <mat-label>{{item}}s Count</mat-label>
+                    <input matInput [formControlName]="item">
+                    <mat-error>
+                        {{item}}s count is required
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Select City</mat-label>
+                    <mat-select matNativeControl formControlName="city">
+                        <mat-option value="" selected></mat-option>
+                        <mat-option [value]="item._id" *ngFor="let item of cities">{{item.title_en}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+<!--                <mat-form-field appearance="outline" class="w-100-p">-->
+<!--                    <mat-label>Area</mat-label>-->
+<!--                    <input matInput formControlName="area">-->
+<!--                    <mat-error>-->
+<!--                       Area is required-->
+<!--                    </mat-error>-->
+<!--                </mat-form-field>-->
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Website</mat-label>
+                    <input matInput formControlName="website">
+                    <mat-error>
+                        Website is incorrect
+                    </mat-error>
+                </mat-form-field>
+                <div class="w-100-p map mx-2 " fxLayout="column" fxLayoutAlign="center">
+                    <div class="form-group">
+                        <div class="mx-8">Enter address</div>
+                        <input type="text" class="form-control my-16 address"
+                               (keydown.enter)="$event.preventDefault()"
+                               placeholder="Search Nearest Location" autocorrect="off"
+                               autocapitalize="off" spellcheck="off" type="text"
+                               #search>
+                    </div>
+
+                    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+                        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                                    (dragEnd)="markerDragEnd($event)"></agm-marker>
+                    </agm-map>
+                    <div class="mt-8" *ngIf="f.locationText.value">
+                        <mat-icon class=""> location_on</mat-icon>
+                        {{f.locationText.value}}
+                    </div>
+                </div>
+
+                <div class="d-flex mt-16 flex-wrap">
+                    <mat-form-field appearance="fill" class="mx-8">
+                        <mat-label>Choose a trade licence issue date</mat-label>
+                        <input matInput [matDatepicker]="pickerIssue" formControlName="date_issue_licences">
+                        <mat-datepicker-toggle matSuffix [for]="pickerIssue"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerIssue></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose a trade licence expire date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date_expired_licences">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class=" mt-32">
+                    <span class="star mt-16">*</span> <input type="file" accept="application/pdf" class="upload-button" (change)="onUpload($event)"/>
+                </div>
+                <div *ngIf="f.trade_licence.value" class="mx-16 mt-8">
+                    <a target="_blank" [href]="restService.baseUrl + f.trade_licence.value">Open Trade licence</a>
+                </div>
+
+                <div class=" my-32 text-center">
+                    <button mat-raised-button color="accent" class="submit-button w-50-p" aria-label="ADD"
+                            [disabled]="UserForm.invalid "
+                            (click)="updateUser()">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+
+        <form name="providerForm" class="mat-elevation-z8 table-responsive w-100-p p-16" *ngIf="role === 'admin' || role === 'master'" [formGroup]="adminForm" novalidate>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="first_name">
+                    <mat-error>
+                        First Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="last_name">
+                    <mat-error>
+                        Arabic Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" readonly>
+                    <mat-error>
+                        Email is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Mobile number</mat-label>
+                    <span matPrefix>+971 &nbsp;</span>
+                    <input matInput formControlName="phone" placeholder="554 5***"  type="tel" maxlength="9" >
+                    <mat-error>
+                        Mobile number is incorrect
+                    </mat-error>
+                </mat-form-field>
+                <div class="verification mb-3 text-primary" (click)="sendOTP()" *ngIf="phone != a.phone.value && !a.phone.errors"><a>Send VerificationCode</a></div>
+
+                <mat-form-field appearance="outline" class="w-100-p" *ngIf="phone != a.phone.value && !a.phone.errors">
+                    <mat-label>Verification code</mat-label>
+                    <input matInput placeholder="" formControlName="otp" maxlength="4">
+                    <mat-icon matSuffix>vpn_key</mat-icon>
+                    <div *ngIf="adminForm.get('otp').hasError('required')">
+                        Verification code id required
+                    </div>
+                </mat-form-field>
+
+                <div class=" my-32 text-center">
+                    <button mat-raised-button color="accent" class="submit-button w-50-p" aria-label="ADD"
+                            [disabled]="adminForm.invalid "
+                            (click)="updateUser()">
+                        Save
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+
+        <form name="providerForm" class="mat-elevation-z8 table-responsive w-100-p p-16" *ngIf="role === 'ecommerce'" [formGroup]="ecommerceForm" novalidate>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="first_name">
+                    <mat-error>
+                        First Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="last_name">
+                    <mat-error>
+                        Arabic Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" readonly>
+                    <mat-error>
+                        Email is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Mobile number</mat-label>
+                    <span matPrefix>+971 &nbsp;</span>
+                    <input matInput formControlName="phone" placeholder="554 5***"  type="tel" maxlength="9">
+                    <mat-error>
+                        Mobile number is incorrect
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="verification mb-3 text-primary" (click)="sendOTP()" *ngIf="phone != e.phone.value && !e.phone.errors"><a>Send VerificationCode</a></div>
+
+                <mat-form-field appearance="outline" class="w-100-p" *ngIf="phone != e.phone.value && !e.phone.errors">
+                    <mat-label>Verification code</mat-label>
+                    <input matInput placeholder="" formControlName="otp" maxlength="4">
+                    <mat-icon matSuffix>vpn_key</mat-icon>
+                    <div *ngIf="ecommerceForm.get('otp').hasError('required')">
+                        Verification code id required
+                    </div>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Designation</mat-label>
+                    <input matInput formControlName="designation">
+                    <mat-error>
+                        Designation is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Company Name</mat-label>
+                    <input matInput formControlName="company_name">
+                    <mat-error>
+                        Company Name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Website</mat-label>
+                    <input matInput formControlName="website">
+                    <mat-error>
+                        Website is required
+                    </mat-error>
+                </mat-form-field>
+                <div class="d-flex mt-16">
+                    <mat-form-field appearance="fill" class="mx-8">
+                        <mat-label>Choose a trade licence issue date</mat-label>
+                        <input matInput [matDatepicker]="pickerIssue" formControlName="date_issue_licences">
+                        <mat-datepicker-toggle matSuffix [for]="pickerIssue"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerIssue></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Choose a trade licence expire date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date_expired_licences">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class=" mt-32">
+                    <span class="star mt-16">*</span> <input type="file" accept="application/pdf" class="upload-button"
+                                                             (change)="onUpload($event)"/>
+                </div>
+
+                <div *ngIf="e.trade_licence.value" class="mx-16 mt-8">
+                    <a target="_blank" [href]="restService.baseUrl + e.trade_licence.value">Open Trade licence</a>
+                </div>
+
+                <div class=" my-32 text-center">
+                    <button mat-raised-button color="accent" class="submit-button w-50-p" aria-label="ADD"
+                            [disabled]="ecommerceForm.invalid "
+                            (click)="updateUser()">
+                        Save
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

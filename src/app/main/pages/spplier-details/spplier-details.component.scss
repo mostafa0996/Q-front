@@ -1,0 +1,55 @@
+.info-line{
+    display: flex;
+    flex-direction: row;
+    height: 6rem;
+}
+
+.accent{
+    height: 5rem;
+    background-color: #039be5 !important;
+    color: white !important;
+    border-radius: 5px;
+    padding: 0 15px;
+}
+
+.options{
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+}
+
+.title{
+    font-weight: bold;
+}
+
+.buttons{
+    display: flex;
+}
+
+.supplier-details{
+    .logo{
+        img{
+
+            width: 20rem;
+        }
+    }
+
+
+    .row{
+        display: flex;
+        justify-content: start;
+        .info{
+            margin-right: 10rem;
+        }
+    }
+
+    .images-list{
+        display: flex;
+        justify-content: start;
+        flex-wrap: wrap;
+        img{
+            width: 15rem;
+            margin-right: 20px
+        }
+    }
+}

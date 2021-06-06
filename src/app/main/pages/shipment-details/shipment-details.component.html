@@ -1,0 +1,150 @@
+<div class="p-24 w-75-p supplier-details" id="about" *ngIf="data">
+    <h1>Shipment Details</h1>
+    <!--    <a  *ngIf="user?.deals.length > 0"   routerLink="/pages/deals/{{user?.user_admin_id}}"><h3>Go To Deals's Service Provider</h3></a>-->
+    <div class="counter" *ngIf="!this.isExpired && this.data.status == 0 && data.assignedStatus == 0">
+        <h1>{{counter.min}} : {{counter.sec}}</h1>
+    </div>
+    <div class="counter" *ngIf="this.isExpired  && data.assignedStatus == 0">
+        <h3 class="unactive">You Exceed 5 Minutes</h3>
+    </div>
+    <div class="about-content">
+
+        <div class="profile-box info-box general" fxLayout="column">
+            <div class="user-order-details">
+                <div>
+
+                    <p class="head-title">User Info</p>
+
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Name:</div>
+                            <div class="info ml-16">{{data.userObj.first_name}}  {{data.userObj.last_name}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Email:</div>
+                            <div class="info ml-16">{{data.userObj.email}} </div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Phone:</div>
+                            <div class="info ml-16">{{data.userObj.phone}} </div>
+                        </div>
+                    </div>
+
+
+                    <p class="head-title">Shipment Info</p>
+
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Shipment ID:</div>
+                            <div class="info ml-16">{{data?.tag}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16" *ngIf="data?.comments">
+                        <div class="info-line">
+                            <div class="title">Comment:</div>
+                            <div class="info ml-16">{{data?.comments}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16" *ngIf="data?.weight">
+                        <div class="info-line">
+                            <div class="title">Weight:</div>
+                            <div class="info ml-16">{{data?.weight}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Category:</div>
+                            <div class="info ml-16">{{data?.subCategoryObj.categoryObj.title_en}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Sub Category:</div>
+                            <div class="info ml-16">{{data?.subCategoryObj.title_en}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Delivery Way:</div>
+                            <div class="info ml-16">{{data?.typeObj.title_en}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">From:</div>
+                            <div class="info ml-16">
+                                <div class="d-flex">
+                                    <div class="title"> Address:</div>
+                                    <div>
+                                        {{data?.fromObj.cityObj.title_en}}, {{data?.fromObj.area}}
+                                        , {{data?.fromObj.building}} Building,
+                                        {{data?.fromObj.street}} street, <span
+                                        *ngIf="data?.fromObj.apartment"> {{data?.fromObj.apartment}}
+                                        apartment, {{data?.fromObj.floor}} floor</span></div>
+                                </div>
+                                <div class="d-flex mt-8">
+                                    <div class="title"> mobile:</div>
+                                    <div class="info ml-16">{{data?.fromObj?.phone}} </div>
+                                </div>
+                                <div class="d-flex mt-8">
+                                    <div class="title"> Name:</div>
+                                    <div class="info ml-16">{{data?.fromObj?.name}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">To:</div>
+                            <div class="info ml-16">
+                                <div class="d-flex">
+                                    <div class="title"> Address:</div>
+                                    <div>
+                                        {{data?.toObj.cityObj.title_en}}, {{data?.toObj.area}}
+                                        , {{data?.toObj.building}} Building,
+                                        {{data?.toObj.street}} street, <span
+                                        *ngIf="data?.toObj.apartment"> {{data?.toObj.apartment}}
+                                        apartment, {{data?.toObj.floor}} floor</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex mt-8">
+                                    <div class="title"> mobile:</div>
+                                    <div class="info ml-16">{{data?.toObj?.phone}} </div>
+                                </div>
+                                <div class="d-flex mt-8">
+                                    <div class="title"> Name:</div>
+                                    <div class="info ml-16">{{data?.toObj?.name}} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Cost:</div>
+                            <div class="info ml-16">{{data?.cost + data?.typeObj.price}}</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="mt-16" *ngIf="!isExpired && data.status == '0' && data.assignedStatus == 0">
+                <button mat-raised-button color="accent" class="submit-button  mat-raised-button mx-8"
+                        aria-label="LOG IN"
+                        (click)="rejectAcceptShipment('1')">
+                    Accept
+                </button>
+                <button mat-raised-button color="accent" class="submit-button mat-raised-button" aria-label="LOG IN"
+                        (click)="rejectAcceptShipment('2')">
+                    reject
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,68 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 categories" id="deals">
+    <h1>Feedbacks</h1>
+    <form [formGroup]="filterForm" class="w-100-p filter-search">
+        <mat-form-field class="w-25-p  filter">
+            <input (keyup)="pagination.tag = $event.target.value;applyFilter()" matInput placeholder="Search By Title">
+        </mat-form-field>
+        <div class="mx-8">
+            <mat-form-field>
+                <mat-label> Date From</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="startDate" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="mx-8">
+            <mat-form-field>
+                <mat-label> Date To</mat-label>
+                <input matInput [matDatepicker]="pickerend" formControlName="endDate" readonly>
+                <mat-datepicker-toggle matSuffix [for]="pickerend"></mat-datepicker-toggle>
+                <mat-datepicker #pickerend></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <button aria-label="EDIT" class="submit-button float-right w-100-p " color="accent" mat-raised-button
+                    (click)="applyFilter()">
+                Apply Filter
+            </button>
+        </div>
+        <div class="mx-16">
+            <app-export-excel [type]="'subscribes'" [pagination]="pagination"></app-export-excel>
+        </div>
+
+    </form>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table
+    matSort matSortActive="date" matSortDisableClear matSortDirection="desc" (matSortChange)="sort($event)">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element._id}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="email" class="">
+            <th *matHeaderCellDef mat-header-cell>Email</th>
+            <td *matCellDef="let element" mat-cell> {{element.email}}  </td>
+        </ng-container>
+        <ng-container matColumnDef="date" class="">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header disableClear>Date</th>
+            <td *matCellDef="let element" mat-cell> {{element.createdAt | date: 'dd/MM/yyyy'}}  </td>
+        </ng-container>
+
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" [pageSizeOptions]="[10,25,50,100,200]" (click)="getScubscritopne()"
+                   [pageSize]="pagination.limit"
+                   (page)="pageEvent = $event;getScubscritopne()"
+    >
+    </mat-paginator>
+
+
+
+
+</div>

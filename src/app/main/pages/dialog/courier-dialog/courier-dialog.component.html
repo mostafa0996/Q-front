@@ -1,0 +1,52 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 couriers-dialog" id="deals">
+    <h1>Couriers Companies</h1>
+    <div class="w-100-p filter-search">
+        <div class="filter ">
+            <div class="">
+                <mat-form-field class=" ">
+                    <input (keyup)="search($event.target.value)" matInput
+                           placeholder="Search By Title" class="">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16 table" mat-table>
+        <!-- Position Column -->
+
+
+        <ng-container matColumnDef="company" class="">
+            <th *matHeaderCellDef mat-header-cell> Company</th>
+            <td *matCellDef="let element" mat-cell> {{element.company_name}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="owner" class="">
+            <th *matHeaderCellDef mat-header-cell>Owner</th>
+            <td *matCellDef="let element" mat-cell> {{element.first_name}} {{element.last_name}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city" class="">
+            <th *matHeaderCellDef mat-header-cell>City</th>
+            <td *matCellDef="let element" mat-cell> {{element.cityObj.title_en}}  </td>
+        </ng-container>
+
+
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell>
+                <button aria-label="EDIT" class="submit-button m-8" color="accent" mat-raised-button
+               (click)="assign(element)" >
+                    Assign
+                </button>
+
+            </td>
+        </ng-container>
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" (click)="getSuppliers()"
+                   [pageSize]="this.pagination.limit"
+                   (page)="pageEvent = $event">
+    </mat-paginator>
+</div>

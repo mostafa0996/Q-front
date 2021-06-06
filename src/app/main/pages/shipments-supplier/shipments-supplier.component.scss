@@ -1,0 +1,55 @@
+.orders img{
+    width: 8rem;
+    object-fit: cover;
+}
+
+ td, th {
+    padding: 10px !important;
+}
+
+
+
+.orders .filter{
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+
+.orders .bg-green div{
+    background: mediumseagreen;
+    font-size: 2rem;
+    width: 25%;
+}
+
+
+
+.orders .autocomplete input{
+    height: 5.2rem;
+    border: 1px solid black;
+    border-radius: 10px;
+
+}
+
+.orders .autocomplete{
+    padding: 0 10px !important;
+
+}
+
+::ng-deep .orders .mat-form-field-flex{
+    border: 1px solid ;
+    border-radius: 7px;
+    background: white;
+    padding: 5px 16px;
+    width: 20rem !important;
+
+}
+
+::ng-deep .orders .mat-form-field-underline{
+    display: none;
+}
+
+
+.orders .orders button{
+    width: 10rem;
+}

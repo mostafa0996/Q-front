@@ -1,0 +1,16 @@
+.error{
+    color: red;
+    margin-top: -20px;
+    font-size: 12px;
+}
+
+::ng-deep  .mat-dialog-container{
+    max-height: 60rem !important;
+    overflow: auto !important;
+
+}
+
+
+.banner img{
+    width:15rem
+}

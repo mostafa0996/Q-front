@@ -1,0 +1,85 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed">
+
+    <div id="" class="edit-dialog" fxLayout="row wrap">
+        <form name="providerForm" class=" flex-column   my-10" [formGroup]="subCategoryForm" novalidate>
+            <h1 *ngIf="data">Edit Sub Category</h1>
+            <h1 *ngIf="!data">New Sub Category</h1>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>English title</mat-label>
+                    <input matInput formControlName="title_en">
+                    <mat-error>
+                        English name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Arabic title</mat-label>
+                    <input matInput formControlName="title_ar">
+                    <mat-error>
+                        Arabic name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Categories</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option *ngFor="let item of categories" [value]="item._id">
+                            {{item.title_en}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                 <div class="m-16">
+                     <mat-slide-toggle formControlName="other">Is other</mat-slide-toggle>
+
+                 </div>
+                <div class="mb-16">
+                    <mat-radio-group aria-label="Select an option ">
+                        <mat-radio-button class="mx-16" [checked]="f.active.value == 1" (click)="f.active.setValue(1)"
+                                          value="1">Active
+                        </mat-radio-button>
+                        <mat-radio-button [checked]="f.active.value == 0" (click)="f.active.setValue(0)" value="0">
+                            Inactive
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>English note</mat-label>
+                    <textarea matInput formControlName="note_en"></textarea>
+
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>Arabic note</mat-label>
+                    <textarea matInput formControlName="note_ar"></textarea>
+
+                </mat-form-field>
+                <div>
+                    <span class="star">*</span> <input type="file" class="upload-button" accept="image/*" (change)="onUpload($event)"/>
+                    <div class="mt-8 icon" *ngIf="data">
+                        <img [src]="restService.baseUrlFile + data.icon" alt="">
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-48">
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data"
+                            [disabled]="subCategoryForm.invalid "
+                            (click)="onSubmit()">
+                        Save
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="!data"
+                            [disabled]="subCategoryForm.invalid "
+                            (click)="addNewSub()">
+                        Add
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button mx-8" aria-label="ADD"
+                            (click)="close()">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

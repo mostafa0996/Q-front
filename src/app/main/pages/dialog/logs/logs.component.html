@@ -1,0 +1,38 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed">
+    <div id="" class="" fxLayout="row wrap">
+        <table [dataSource]="dataSource" class=" w-100-p p-16" mat-table>
+
+            <ng-container matColumnDef="index">
+                <th *matHeaderCellDef mat-header-cell> index</th>
+                <td *matCellDef="let element; let i = index" mat-cell> {{i + 1}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="company" >
+                <th *matHeaderCellDef mat-header-cell class="px-32"> Company</th>
+                <td *matCellDef="let element" mat-cell  class="px-32"> {{element.to.company_name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="response">
+                <th *matHeaderCellDef mat-header-cell> Status</th>
+                <td *matCellDef="let element" mat-cell>
+                <div *ngIf="element.status == 0">No Response</div>
+                <div *ngIf="element.status == 1">Accepted</div>
+                <div *ngIf="element.status == 2">Rejected</div>
+                </td>
+            </ng-container>
+
+
+            <!-- Symbol Column -->
+
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+
+        </table>
+
+
+    </div>
+
+
+</div>

@@ -1,0 +1,47 @@
+<div class="page-layout ios-scroll simple tabbedm p-16" id="deals">
+    <h1>Banners</h1>
+
+        <div class="mb-16">
+            <button aria-label="EDIT" class="submit-button float-right add-button " color="accent" mat-raised-button
+                   (click)="openAddDialog()">
+                <img class="icone-plus " src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New banner
+            </button>
+        </div>
+
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table>
+
+
+        <ng-container matColumnDef="image" class="">
+            <th *matHeaderCellDef mat-header-cell> Photo</th>
+            <td *matCellDef="let element" mat-cell>
+                <img [src]="restService.baseUrlFile + element.image" alt="" >
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="element.active == 0">Inactive</span>
+                <span class="active" *ngIf="element.active == 1">Active</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell class="py-8 action">
+                <img src="assets/icons/table/edit.png" aria-label="details"  class=" mx-4 my-4" color="accent" title="edit"
+                (click)="openEditDialog(element)">
+
+                <img src="assets/icons/table/delete.png" aria-label="details"  class=" mx-4 my-4" color="accent" title="delete"
+                (click)="confirmeRemove(element)">
+            </td>
+
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+
+
+</div>

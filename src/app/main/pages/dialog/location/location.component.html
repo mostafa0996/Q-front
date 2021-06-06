@@ -1,0 +1,21 @@
+<div class="w-100 map mx-2 " fxLayout="column" fxLayoutAlign="center">
+    <div class="form-group">
+      <label>Enter Address</label>
+      <input type="text" class="form-control my-8"
+             (keydown.enter)="$event.preventDefault()"
+             placeholder="Search Nearest Location" autocorrect="off" country="AE"
+             autocapitalize="off" spellcheck="off" type="text"
+              #search>
+    </div>
+
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                  (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+
+
+  <div class="text-right my-8 ">
+    <button  aria-label="EDIT" class="submit-button float-right add-button mx-8 w-25-p" color="accent" mat-raised-button  (click)="selectLocation()">Done</button>
+    <button  aria-label="EDIT" class="submit-button float-right add-button mx-8 w-25-p" color="accent"  (click)="dialog.closeAll()">Close</button>
+  </div>
+</div>

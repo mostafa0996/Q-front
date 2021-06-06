@@ -1,0 +1,54 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed ">
+
+    <div id="" class="edit-dialog" fxLayout="row wrap">
+        <form name="providerForm" class=" flex-column   my-10" [formGroup]="testimonialForm" novalidate>
+            <h1 *ngIf="data">Edit Testimonial</h1>
+            <h1 *ngIf="!data">New Testimonial</h1>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>English Description </mat-label>
+                    <textarea matInput formControlName="description_en" rows="5"></textarea>
+                    <mat-error>
+                        English description is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Arabic Description </mat-label>
+                    <textarea matInput formControlName="description_ar" rows="5"></textarea>
+                    <mat-error>
+                        Arabic description is required
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <span class="star">*</span> <input type="file" class="upload-button" accept="image/*" (change)="onUpload($event)"/>
+                    <div class="mt-8 icon" *ngIf="data">
+                        <img [src]="restService.baseUrlFile + data.image" alt="">
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 mt-48">
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data"
+                            [disabled]="testimonialForm.invalid "
+                            (click)="updateTestimonial()">
+                        Save
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="!data"
+                            [disabled]="testimonialForm.invalid "
+                            (click)="addTestimonial()">
+                        Add
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button mx-8" aria-label="ADD"
+                            (click)="close()">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

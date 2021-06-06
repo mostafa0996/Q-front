@@ -1,0 +1,113 @@
+.position-relative {
+    position: relative;
+
+    .select-location {
+        bottom: -18px;
+        left: 30%;
+    }
+}
+
+.primary-color {
+    color: #e65526;
+
+}
+
+mat-panel-title {
+    img {
+        width: 3rem;
+    }
+}
+
+.sub-cat {
+    img {
+        width: 1.7rem;
+    }
+}
+
+.bg-primary {
+    background: #e65526 !important
+
+}
+
+.bg-success {
+    background: #eee !important
+}
+
+.bg-white {
+    background: white;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-center{
+    justify-content: center;
+
+}
+
+.rounded-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.check {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.h-2{
+    height: 4rem;
+    border-radius: 5px;
+}
+
+
+
+.active-type {
+    background: #444444;
+
+    .duration {
+        span{
+            font-size: 4rem;
+        }
+    }
+
+    .price {
+        color: white;
+
+        p {
+            font-size: 14px;
+        }
+    }
+
+}
+
+.unactive-type {
+    background: #eeeeee;
+
+    .duration {
+        span{
+            font-size: 4rem;
+        }
+    }
+
+
+    .price {
+        p {
+            font-size: 14px;
+        }
+    }
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix, .mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: -1px !important;
+}
+.costValue{
+    padding: 10px 20px;
+    margin-top: 20px;
+    background: #ffffff;
+    border: 2px solid #6f6969;
+}

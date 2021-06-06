@@ -1,0 +1,96 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 orders" id="deals">
+    <div class="filter">
+        <form [formGroup]="filterForm" class="filter ">
+            <div class="">
+                <mat-form-field class="   ">
+                    <mat-label>Search By Transaction ID</mat-label>
+                    <input (keyup)="pagination.tag = $event.target.value ;applyFilter()" matInput
+                           placeholder="Transaction id" class="">
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p mt-16 p-16 table-responsive" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element.tag}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Assigned" class="">
+            <th *matHeaderCellDef mat-header-cell>Driver</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="!element.driverObj"> Not Assign</span>
+                <span *ngIf="element.driverObj">{{element.driverObj.first_name}} {{element.driverObj.last_name}}</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category" class="">
+            <th *matHeaderCellDef mat-header-cell> Category</th>
+            <td *matCellDef="let element" mat-cell> {{element.subCategoryObj.categoryObj.title_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date" class="">
+            <th *matHeaderCellDef mat-header-cell>Order Timing</th>
+            <td *matCellDef="let element" mat-cell> {{element.createdAt | date: 'dd/MM/yyyy hh:mm a'}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="proccess" *ngIf="element.status == 1">Dispatch  </span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type" class="">
+            <th *matHeaderCellDef mat-header-cell>Delivery Way</th>
+            <td *matCellDef="let element" mat-cell>
+                {{element.typeObj.title_en}} ({{element.typeObj.price}})
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cost" class="">
+            <th *matHeaderCellDef mat-header-cell>Cost</th>
+            <td *matCellDef="let element" mat-cell>
+                {{element.cost}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total" class="">
+            <th *matHeaderCellDef mat-header-cell>Total</th>
+            <td *matCellDef="let element" mat-cell>
+                {{element.typeObj.price + element.cost }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action" class="">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell>
+                <p class="m-0">
+                    <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button
+                            (click)="openDialogOrder(element)">
+                        Details
+                    </button>
+                </p>
+                <p class="m-0">
+                    <button aria-label="EDIT" class="submit-button m-4" color="accent" mat-raised-button
+                             (click)="rejectAcceptShipment(element)">
+                        Cancel
+                    </button>
+                </p>
+            </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" (click)="getOrders()"
+                   [pageSize]="pagination.limit"
+                   (page)="pageEvent = $event"
+    >
+    </mat-paginator>
+
+</div>

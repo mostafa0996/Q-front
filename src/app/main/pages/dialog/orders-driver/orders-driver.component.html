@@ -1,0 +1,34 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed ios-scroll">
+    <div class="close" (click)="dialogRef.close()">
+        <mat-icon>cancel</mat-icon>
+    </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table>
+
+
+        <ng-container matColumnDef="tag">
+            <th *matHeaderCellDef mat-header-cell> Tag</th>
+            <td *matCellDef="let element" mat-cell> {{element.tag}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell class="py-8">
+
+                <button aria-label="details" *ngIf="element.active !== 2" class="submit-button mx-4 my-4" color="accent"
+                        mat-raised-button (click)="openOrderDetails(element)">
+                    Details
+                </button>
+
+
+            </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+
+
+</div>
+
+

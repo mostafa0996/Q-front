@@ -1,0 +1,74 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 orders" id="deals">
+    
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p mt-16 p-16 table-responsive"
+    mat-table matSort matSortActive="date" matSortDisableClear matSortDirection="desc" (matSortChange)="sort($event)">
+
+        <!-- Position Column -->
+
+        <ng-container matColumnDef="title" class="">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header disableClear>Customer/E-commerce Name</th>
+            <td *matCellDef="let element" mat-cell> 
+                <a [routerLink]="'/pages/supplier-details/' + element?.userObj?._id">{{element.userObj?.first_name}} {{element.userObj?.last_name}} </a>
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="company" class="">
+            <th *matHeaderCellDef mat-header-cell>Courier Company</th>
+            <td *matCellDef="let element" mat-cell> 
+                <a [routerLink]="'/pages/supplier-details/' + element.companyObj?._id" >{{element.companyObj?.company_name}}  </a>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="trackingId" class="">
+            <th *matHeaderCellDef mat-header-cell> Tracking ID.</th>
+            <td *matCellDef="let element" mat-cell> {{element.tag}} </td>
+        </ng-container>
+        <ng-container matColumnDef="date" class="">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header disableClear>Delivery Date</th>
+            <td *matCellDef="let element" mat-cell>
+                {{element.deliveryDate  | date: 'dd/MM/yyyy hh:mm a' }} 
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="deliveryType" class="">
+            <th *matHeaderCellDef mat-header-cell>Delivery Type</th>
+            <td *matCellDef="let element" mat-cell>
+                {{element.typeObj.title_en}} 
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="deliveryCharge" class="">
+            <th *matHeaderCellDef mat-header-cell>Delivery Charge</th>
+            <td *matCellDef="let element" mat-cell>
+                 ({{element.typeObj.price}})
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="pending" *ngIf="element.status == 0">Pending</span>
+                <span class="proccess" *ngIf="element.status == 1">Dispatched</span>
+                <span class="active" *ngIf="element.status == 2">On Way</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="details" class="">
+            <th *matHeaderCellDef mat-header-cell>Details</th>
+            <td *matCellDef="let element" mat-cell>
+                <a [routerLink]="'/pages/shipment-details/' + element._id + '/' + element.createdAt">See Details</a>
+            </td>
+        </ng-container>
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+    <mat-paginator  class="w-100-p paginate" [length]="length" [pageSizeOptions]="[10,25,50,100,200]" (click)="getOrders()"
+                   [pageSize]="pagination.limit"
+                   (page)="pageEvent = $event;getOrders()"
+    >
+    </mat-paginator>
+
+
+
+</div>

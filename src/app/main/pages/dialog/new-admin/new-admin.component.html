@@ -1,0 +1,123 @@
+<h1 *ngIf="!data && role == 'admin'">New Admin Account</h1>
+<h1 *ngIf="data && data.role == 'admin'">Edit Admin Account</h1>
+
+<h1 *ngIf=" role == 'user'">New User Account</h1>
+
+<form name="providerForm" class=" w-100-p p-16 admin"  [formGroup]="adminForm" novalidate *ngIf="role == 'admin' || data?.role == 'admin'">
+    <div class="new_branch py-16">
+        <mat-form-field appearance="outline" class="">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="first_name">
+            <mat-error>
+                First Name is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="last_name">
+            <mat-error>
+                Arabic Name is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Designation</mat-label>
+            <input matInput formControlName="designation">
+            <mat-error>
+                Designation is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error>
+                Email is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Mobile number</mat-label>
+            <span matPrefix>+971 &nbsp;</span>
+            <input matInput formControlName="phone" placeholder="554 5***"  type="tel" maxlength="9">
+            <mat-error>
+                Mobile number is incorrect
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password">
+            <div *ngIf="!data && f.password.invalid && (f.password.dirty ||f.password.touched)">
+                <div *ngIf="f.password.errors.required">
+                    Password is required
+                </div>
+                <div
+                    *ngIf="f.password.errors.minlength || f.password.errors.maxLength"> Password must be between 8 & 16 characters.</div>
+            </div>
+        </mat-form-field>
+
+        <div class="  text-center">
+            <button mat-raised-button color="accent" class="submit-button w-50-p" aria-label="ADD" *ngIf="data"
+                    [disabled]="adminForm.invalid "
+                    (click)="updateUser()">
+                Save
+            </button>
+            <button mat-raised-button color="accent" class="submit-button w-50-p" aria-label="ADD" *ngIf="!data"
+                    [disabled]="adminForm.invalid || !f.password.value"
+                    (click)="addUser()">
+                Add
+            </button>
+        </div>
+
+    </div>
+
+</form>
+
+
+<form name="providerForm" class=" w-100-p p-16 admin"  [formGroup]="userForm" novalidate *ngIf="role == 'user'">
+    <div class="new_branch py-16">
+        <mat-form-field appearance="outline" class="">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="first_name">
+            <mat-error>
+                First Name is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="last_name">
+            <mat-error>
+                Arabic Name is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error>
+                Email is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Mobile number</mat-label>
+            <span matPrefix>+971 &nbsp;</span>
+            <input matInput formControlName="phone" placeholder="554 5***"  type="tel" maxlength="9">
+            <mat-error>
+                Mobile number is incorrect
+            </mat-error>
+        </mat-form-field>
+
+
+        <div class="  text-center">
+            <button mat-raised-button color="accent" class="submit-button w-50-p" aria-label="ADD" *ngIf="data"
+                    [disabled]="userForm.invalid "
+                    (click)="updateUser()">
+                Save
+            </button>
+            <button mat-raised-button color="accent" class="submit-button w-50-p" aria-label="ADD" *ngIf="!data"
+                    [disabled]="userForm.invalid "
+                    (click)="addUser()">
+                Add
+            </button>
+        </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,16 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 permissions" id="deals">
+    <h1>Permissions</h1>
+    <section class="example-section">
+        <span class="example-list-section">
+<!--    <ul *ngIf="permissions.length">-->
+    <ul>
+      <li *ngFor="let subtask of subtasks">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      (ngModelChange)="updateList(subtask)">
+          {{subtask.title}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+    </section>
+</div>

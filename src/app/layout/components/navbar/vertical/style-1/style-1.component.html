@@ -1,0 +1,41 @@
+<div class="navbar-top" [ngClass]="fuseConfig?.layout.navbar.secondaryBackground">
+
+<!--    <div class="logo">-->
+<!--        <img class="logo-icon w-50-p mt-8" src="assets/images/logos/logo.png">-->
+<!--&lt;!&ndash;        <span class="logo-text secondary-text">Coboney</span>&ndash;&gt;-->
+<!--    </div>-->
+
+    <div class="buttons">
+
+<!--        <button mat-icon-button class="toggle-sidebar-folded"-->
+<!--                (click)="toggleSidebarFolded()" fxHide.lt-lg>-->
+<!--            <mat-icon class="secondary-text">menu</mat-icon>-->
+<!--        </button>-->
+
+        <button mat-icon-button class="toggle-sidebar-opened"
+                (click)="toggleSidebarFolded()">
+            <mat-icon class="secondary-text">menu</mat-icon>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="navbar-scroll-container" [ngClass]="fuseConfig?.layout.navbar.primaryBackground"
+     fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}">
+
+<!--    <div class="user" fxLayout="column" [ngClass]="fuseConfig?.layout.navbar.secondaryBackground">-->
+
+<!--        <div class="h5 email hint-text mt-8">{{email}}</div>-->
+<!--&lt;!&ndash;        <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img class="avatar" src="assets/images/logos/logo.png">&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--    </div>-->
+
+    <div class="navbar-content">
+        <fuse-navigation [navigation]="navigation" class="material2" layout="vertical"></fuse-navigation>
+    </div>
+
+</div>

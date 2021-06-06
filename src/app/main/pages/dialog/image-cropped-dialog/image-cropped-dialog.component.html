@@ -1,0 +1,58 @@
+<div class="container-fluid croppe-dialog">
+    <div class="row position-relative">
+        <div class=" position-absolute close-button" (click)="dialog.closeAll()" style="cursor: pointer">X</div>
+        <div class="col-md-12">
+            <input type="file" class="upload-button" (change)="fileChangeEvent($event)"/>
+            <br/>
+            <br/>
+            <button *ngIf="croppedImage" mat-raised-button color="accent" class="m-8" (click)="rotateLeft()">Rotate
+                left
+            </button>
+            <button *ngIf="croppedImage" mat-raised-button color="accent" class="m-8" (click)="rotateRight()">Rotate
+                right
+            </button>
+            <button *ngIf="croppedImage" mat-raised-button color="accent" class="m-8" (click)="flipHorizontal()">Flip
+                horizontal
+            </button>
+            <button *ngIf="croppedImage" mat-raised-button color="accent" class="m-8" (click)="flipVertical()">Flip
+                vertical
+            </button>
+            <button *ngIf="croppedImage" mat-raised-button color="accent" class="m-8" (click)="zoomIn()">
+                Zoom In
+            </button>
+            <button *ngIf="croppedImage" mat-raised-button color="accent" class="m-8" (click)="zoomOut()">
+                Zoom Out
+            </button>
+
+            <div class="my-16">
+
+                <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [containWithinAspectRatio]="containWithinAspectRatio"
+                    [aspectRatio]="4 / 3"
+                    [resizeToWidth]="500"
+                    [resizeToHeight]="500"
+                    [cropperMinWidth]="500"
+                    [cropperMinHeight]="500"
+                    [onlyScaleDown]="true"
+                    [roundCropper]="false"
+                    [canvasRotation]="canvasRotation"
+                    [transform]="transform"
+                    [alignImage]="'left'"
+                    [style.display]="showCropper ? null : 'none'"
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady($event)"
+                    (loadImageFailed)="loadImageFailed()"
+                ></image-cropper>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <button class="btn btn-primary mx-8  w-100-p upload" (click)="onSubmit()" *ngIf="croppedImage">Done</button>
+        </div>
+    </div>
+
+

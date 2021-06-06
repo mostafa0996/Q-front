@@ -1,0 +1,78 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 supplier" id="deals">
+    <h1>Couriers Companies</h1>
+    <div class="w-100-p filter-search">
+        <div class="filter ">
+            <div class="">
+                <mat-form-field class=" ">
+                    <input (keyup)="search($event.target.value)" matInput
+                           placeholder="Search By Title" class="">
+                </mat-form-field>
+            </div>
+        </div>
+        <div>
+            <button aria-label="EDIT" class="submit-button float-right " color="accent" mat-raised-button
+                    routerLink="/pages/new-user/courier">
+                <img class="icone-plus " src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Courier
+            </button>
+        </div>
+    </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16 table" mat-table
+    matSort matSortActive="title" matSortDisableClear matSortDirection="desc" (matSortChange)="sort($event)">
+        <!-- Position Column -->
+
+
+        <ng-container matColumnDef="title" class="">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header disableClear> Company</th>
+            <td *matCellDef="let element" mat-cell> {{element.company_name}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="owner" class="">
+            <th *matHeaderCellDef mat-header-cell>Owner</th>
+            <td *matCellDef="let element" mat-cell> {{element.first_name}} {{element.last_name}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city" class="">
+            <th *matHeaderCellDef mat-header-cell>City</th>
+            <td *matCellDef="let element" mat-cell> {{element.cityObj.title_en}}  </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="element.active == 0">Inactive</span>
+                <span class="active" *ngIf="element.active == 1">Active</span>
+                <span class="unactive" *ngIf="element.active == 2">Reject</span>
+            </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" class="action" mat-cell>
+                <img src="assets/icons/table/edit.png" aria-label="EDIT" class=" m-8" color="accent"
+                     [routerLink]="'/pages/new-user/' + element._id" title="edit"                >
+
+                <img src="assets/icons/table/details.png" aria-label="EDIT" class=" m-8" color="accent"
+                     [routerLink]="'/pages/supplier-details/' + element._id" title="details"
+                >
+
+                <img src="assets/icons/table/inactive.png" aria-label="details" *ngIf="element?.active != 0"
+                     class="  m-8" title="inactive"
+                     color="accent"
+                     (click)="confirmeApprove(element , 0)">
+
+                <img src="assets/icons/table/active.png" aria-label="details" *ngIf="element?.active == 0" class="  m-8"
+                     color="accent" title="active"
+                     (click)="confirmeApprove(element, 1)">
+
+
+            </td>
+        </ng-container>
+    </table>
+    <mat-paginator class="w-100-p" [length]="length" [pageSizeOptions]="[10,25,50,100,200]"(click)="getSuppliers()"
+                   [pageSize]="this.pagination.limit"
+                   (page)="pageEvent = $event;getSuppliers()">
+    </mat-paginator>
+</div>

@@ -1,0 +1,69 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 categories" id="deals">
+    <h1>Categories</h1>
+    <div class="w-100-p">
+        <mat-form-field class="w-25-p p-16 filter">
+            <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search By Title">
+        </mat-form-field>
+
+        <button aria-label="EDIT" class="submit-button float-right add-button" color="accent" mat-raised-button
+                (click)="openAddDialog()">
+            <img src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Category
+        </button>
+    </div>
+    <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="category_id" class="">
+            <th *matHeaderCellDef mat-header-cell> No.</th>
+            <td *matCellDef="let element" mat-cell> {{element._id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name_en" class="">
+            <th *matHeaderCellDef mat-header-cell> English Title</th>
+            <td *matCellDef="let element" mat-cell> {{element.title_en}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name_ar" class="">
+            <th *matHeaderCellDef mat-header-cell>Arabic Title</th>
+            <td *matCellDef="let element" mat-cell> {{element.title_ar}}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="weight" class="">
+            <th *matHeaderCellDef mat-header-cell>Weight</th>
+            <td *matCellDef="let element" mat-cell> {{element.weight}}  </td>
+        </ng-container>
+        <ng-container matColumnDef="image" >
+            <th *matHeaderCellDef mat-header-cell>Image</th>
+            <td *matCellDef="let element" mat-cell><img [src]="restService.baseUrlFile   +  element.icon" alt="" class="icon">  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status" class="">
+            <th *matHeaderCellDef mat-header-cell> Status</th>
+            <td *matCellDef="let element" mat-cell>
+                <span class="unactive" *ngIf="element.active == 0">Not Active</span>
+                <span class="active" *ngIf="element.active == 1">Active</span>
+            </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="action">
+            <th *matHeaderCellDef mat-header-cell> Action</th>
+            <td *matCellDef="let element" mat-cell class="py-8 action">
+                <img src="assets/icons/table/edit.png" aria-label="details"  class=" mx-4 my-4" color="accent" title="edit"
+                             (click)="openEditDialog(element)">
+
+                <img src="assets/icons/table/inactive.png" aria-label="details" *ngIf="element.active == 1" class=" mx-4 my-4" color="accent" title="inactive"
+                (click)="updateCategory(element , 0)">
+
+                <img src="assets/icons/table/active.png" aria-label="details" *ngIf="element.active == 0" class=" mx-4 my-4" color="accent" title="active"
+               (click)="updateCategory(element , 1)">
+                
+            </td>
+        </ng-container>
+
+
+        <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+
+    </table>
+
+</div>

@@ -1,0 +1,35 @@
+<div class="col-md-12 cropped">
+    <span class="star">*</span> <input type="file" accept="image/*" (change)="fileChangeEvent($event)" class="upload-button"  />
+    <br/>
+    <br/>
+    <button *ngIf="croppedImage" mat-raised-button color="accent" class="mx-8" (click)="zoomOut()">Zoom -</button>
+    <button *ngIf="croppedImage" mat-raised-button color="accent" class="mx-8" (click)="zoomIn()">Zoom +</button>
+    <div class="my-16">
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [containWithinAspectRatio]="containWithinAspectRatio"
+            [aspectRatio]="4 / 3"
+            [resizeToWidth]="500"
+            [cropperMinWidth]="500"
+            [onlyScaleDown]="false"
+            [roundCropper]="false"
+            [canvasRotation]="canvasRotation"
+            [transform]="transform"
+            [alignImage]="'left'"
+            [style.display]="showCropper ? null : 'none'"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+    </div>
+    <button mat-raised-button color="accent" class="btn btn-primary mx-8" *ngIf="croppedImage"
+            (click)="uploadTextFile()">Crop
+    </button>
+
+</div>
+<div class="col-md-12 mt-8" *ngIf="image">
+    <img [src]="croppedImage? croppedImage : restService.baseUrlFile + image" class="my-5 mx-auto image"/>
+</div>

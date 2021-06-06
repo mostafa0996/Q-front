@@ -1,0 +1,68 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed">
+
+    <div id="" class="edit-dialog" fxLayout="row wrap">
+        <form name="providerForm" class=" flex-column   my-10" [formGroup]="editAdvantage" novalidate>
+            <h1 *ngIf="data">Edit Advantage</h1>
+            <h1 *ngIf="!data">New Advantage</h1>
+            <div class="new_branch">
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>English title</mat-label>
+                    <input matInput formControlName="title_en">
+                    <mat-error>
+                        English name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Arabic title</mat-label>
+                    <input matInput formControlName="title_ar">
+                    <mat-error>
+                        Arabic name is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="">
+                    <mat-label>Description title</mat-label>
+                    <textarea matInput formControlName="description_en"></textarea>
+                    <mat-error>
+                        English Description is required
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100-p">
+                    <mat-label>Description title</mat-label>
+                    <textarea matInput formControlName="description_ar"></textarea>
+                    <mat-error>
+                        Arabic Description is required
+                    </mat-error>
+                </mat-form-field>
+                <div>
+<!--                    <span class="star">*</span> <input type="file" accept="image/*" (change)="onUpload($event)"/>-->
+<!--                    <div class="mt-8 icon" *ngIf="data">-->
+<!--                        <img [src]="restService.baseUrlFile + data.image" alt="">-->
+<!--                    </div>-->
+                    <app-cropped-image class="mt-24" [image]="f.image.value" (url)="f.image.setValue($event)"></app-cropped-image>
+
+                </div>
+                <div class="col-md-12 mt-48">
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data"
+                            [disabled]="editAdvantage.invalid "
+                            (click)="onSubmit()">
+                        Edit
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="!data"
+                            [disabled]="editAdvantage.invalid "
+                            (click)="addNewAdvantage()">
+                        Add
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button mx-8" aria-label="ADD"
+                            (click)="close()">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

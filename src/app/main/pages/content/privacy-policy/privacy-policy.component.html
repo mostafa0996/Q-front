@@ -1,0 +1,37 @@
+<div>
+    <form role="form" [formGroup]="contentForm" accept-charset="UTF-8" novalidate style="margin: 30px;">
+        <mat-form-field appearance="outline" class="">
+            <mat-label>English title</mat-label>
+            <input matInput formControlName="title_en">
+            <mat-error>
+                English name is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Arabic title</mat-label>
+            <input matInput formControlName="title_ar">
+            <mat-error>
+                Arabic name is required
+            </mat-error>
+        </mat-form-field>
+        <h4>Content in english</h4>
+        <ckeditor  required formControlName="content_en"
+
+                  [config]="ckeConfig" debounce="500">
+
+        </ckeditor>
+        <h4>Content in arabic</h4>
+
+        <ckeditor class="right"  required formControlName="content_ar"
+
+                  [config]="ckeConfig" debounce="500">
+
+        </ckeditor>
+
+        <button (click)="saveContent()" aria-label="ADD" [disabled]="contentForm.invalid"
+                class="submit-button w-100-p mt-24" color="accent"
+                mat-raised-button>
+            Update
+        </button>
+    </form>
+</div>

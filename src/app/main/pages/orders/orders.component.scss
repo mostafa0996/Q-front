@@ -1,0 +1,42 @@
+.orders img{
+    width: 8rem;
+    object-fit: cover;
+}
+
+td , th{
+    padding: 10px !important;
+}
+
+
+.orders .filter{
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+
+.orders .bg-green div{
+    background: mediumseagreen;
+    font-size: 2rem;
+    width: 25%;
+}
+
+
+
+.orders .autocomplete input{
+    height: 5.2rem;
+    border: 1px solid black;
+    border-radius: 10px;
+
+}
+
+.orders .autocomplete{
+    padding: 0 10px !important;
+
+}
+
+
+
+.orders .orders button{
+    width: 10rem;
+}

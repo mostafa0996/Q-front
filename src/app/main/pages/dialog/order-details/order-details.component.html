@@ -1,0 +1,123 @@
+<div class="order-details " id="about">
+    <div class="close" (click)="dialogRef.close()">
+        <mat-icon>cancel</mat-icon>
+    </div>
+    <div class="about-content">
+
+        <div class="profile-box info-box general" fxLayout="column">
+            <div class="user-order-details">
+                <div>
+
+                    <p class="head-title">Supplier Info</p>
+
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Courier:</div>
+                            <div class="info ml-16">{{data.companyObj?.company_name}}  </div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Driver:</div>
+                            <div class="info ml-16">{{data.driverObj?.first_name}} {{data.driverObj?.last_name}}</div>
+                        </div>
+                    </div>
+
+                    <p class="head-title">Shipment Info</p>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">User Name:</div>
+                            <div class="info ml-16">{{data?.userObj.first_name}} {{data?.userObj.last_name}}</div>
+                        </div>
+                    </div>
+
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Shipment ID:</div>
+                            <div class="info ml-16">{{data?.tag}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Order Timing:</div>
+                            <div class="info ml-16">{{data?.createdAt | date: 'dd/MM/yyyy  hh:mm a'}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16" *ngIf="data?.comments">
+                        <div class="info-line">
+                            <div class="title">Comment:</div>
+                            <div class="info ml-16">{{data?.comments}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16" *ngIf="data?.weight">
+                        <div class="info-line">
+                            <div class="title">Weight:</div>
+                            <div class="info ml-16">{{data?.weight}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Category:</div>
+                            <div class="info ml-16">{{data?.subCategoryObj.categoryObj.title_en}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Sub Category:</div>
+                            <div class="info ml-16">{{data?.subCategoryObj.title_en}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Delivery Way:</div>
+                            <div class="info ml-16">{{data?.typeObj.title_en}}</div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">From:</div>
+                            <div class="info ml-16">
+                                <div>Address: {{data.fromObj.cityObj.title_en}}, {{data.fromObj.area}}
+                                    , {{data.fromObj.building}} Building,
+                                    {{data.fromObj.street}} street, <span
+                                        *ngIf="data.fromObj.apartment"> {{data.fromObj.apartment}}
+                                        apartment, {{data.fromObj.floor}} floor</span></div>
+                                <div>Mobile: {{data?.fromObj?.phone}}</div>
+                                <div>Name: {{data?.fromObj?.name}}</div>
+                            </div>
+                            <!--                            <div class="title"> / Mobile:</div>-->
+                            <!--                            <div class="info ml-16">{{data?.fromObj?.phone}} </div>-->
+                            <!--                            <div class="title"> / Name:</div>-->
+                            <!--                            <div class="info ml-16">{{data?.fromObj?.name}} </div>-->
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">To:</div>
+                            <div class="info ml-16">
+                                <div>
+                                    Address: {{data.toObj.cityObj.title_en}}, {{data.toObj.area}}
+                                    , {{data.toObj.building}} Building,
+                                    {{data.toObj.street}} street, <span
+                                    *ngIf="data.toObj.apartment"> {{data.toObj.apartment}}
+                                    apartment, {{data.toObj.floor}} floor</span>
+                                </div>
+                                <div>Mobile: {{data?.toObj?.phone}}</div>
+                                <div>Name: {{data?.toObj?.name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content mt-16">
+                        <div class="info-line">
+                            <div class="title">Cost:</div>
+                            <div class="info ml-16">{{data?.cost + data?.typeObj.price}}</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

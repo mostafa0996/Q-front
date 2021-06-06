@@ -1,0 +1,54 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed testimonial">
+
+
+    <div id="" class="p-24" fxLayout="row wrap">
+        <div class="w-100-p  ">
+            <div>
+                <button aria-label="EDIT" class="submit-button float-right add-button" color="accent" mat-raised-button
+                        (click)="openAddDialog()">
+                    <img class="icone-plus " src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add Testimonials
+                </button>
+            </div>
+        </div>
+        <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16 mt-32" mat-table>
+
+            <ng-container matColumnDef="desc_en">
+                <th *matHeaderCellDef mat-header-cell>English Description</th>
+                <td *matCellDef="let element" mat-cell> {{element.description_en}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="desc_ar">
+                <th *matHeaderCellDef mat-header-cell> Arabic Description</th>
+                <td *matCellDef="let element" mat-cell> {{element.description_ar}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="image">
+                <th *matHeaderCellDef mat-header-cell> Image</th>
+                <td *matCellDef="let element" mat-cell> <img [src]="restService.baseUrlFile + element.image" class="icon" alt=""> </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="action" class="action">
+                <th *matHeaderCellDef mat-header-cell> Action</th>
+                <td *matCellDef="let element" mat-cell class="py-8">
+
+                    <button aria-label="details"  class="submit-button mx-4 my-4" color="accent"
+                            mat-raised-button (click)="editDialog(element)">
+                        Edit
+                    </button>
+                    <button aria-label="details"  class="submit-button mx-4 my-4" color="accent"
+                            mat-raised-button (click)="confirm(element)">
+                        Delete
+                    </button>
+
+                </td>
+            </ng-container>
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+        </table>
+    </div>
+
+
+</div>

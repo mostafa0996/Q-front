@@ -1,0 +1,43 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed banner">
+    <div id="" class="" fxLayout="row wrap">
+        <form name="providerForm" class=" flex-column   my-10" [formGroup]="bannerForm" novalidate>
+            <h1 *ngIf="data">Edit Banner</h1>
+            <h1 *ngIf="!data">New Banner</h1>
+            <div class="new_branch">
+                <div class="mb-16" *ngIf="data">
+                    <mat-radio-group aria-label="Select an option ">
+                        <mat-radio-button class="mx-16" [checked]="f.active.value == 1" (click)="f.active.setValue(1)"
+                                          value="1">Active
+                        </mat-radio-button>
+                        <mat-radio-button [checked]="f.active.value == 0" (click)="f.active.setValue(0)" value="0">
+                            Inactive
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div>
+                    <span class="star">*</span> <input type="file"  class="upload-button" (change)="onUpload($event)"/>
+                </div>
+                <div class="image-banner mt-16" *ngIf="f.image.value"><img [src]="restService.baseUrlFile + f.image.value"
+                                                                           alt=""></div>
+                <div class="col-md-12 mt-48">
+
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data "
+                            [disabled]="bannerForm.invalid || !f.image.value "
+                            (click)="onSubmit()">
+                        Save
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="!data  "
+                            [disabled]="bannerForm.invalid || !bannerForm.controls.image.value "
+                            (click)="addNewBanner()">
+                        Add
+                    </button>
+
+                    <button mat-raised-button color="accent" class="submit-button mx-8" aria-label="ADD"
+                            (click)="close()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

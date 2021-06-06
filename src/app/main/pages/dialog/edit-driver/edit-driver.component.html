@@ -1,0 +1,53 @@
+<form name="providerForm" class=" w-100-p "  [formGroup]="driverForm" novalidate>
+    <div class="new_branch">
+        <mat-form-field appearance="outline" class="">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="first_name">
+            <mat-error>
+                First Name is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="last_name">
+            <mat-error>
+                Arabic Name is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error>
+                Email is required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100-p">
+            <mat-label>Mobile number</mat-label>
+            <span matPrefix>+971 &nbsp;</span>
+            <input matInput formControlName="phone" placeholder="554 5***"  type="tel" maxlength="9">
+            <mat-error>
+                Mobile number is incorrect
+            </mat-error>
+        </mat-form-field>
+
+
+        <div class=" my-32 ">
+            <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data"
+                    [disabled]="driverForm.invalid "
+                  (click)="updateUser()"  >
+                Save
+            </button>
+            <button mat-raised-button color="accent" class="submit-button mx-4 " aria-label="ADD" *ngIf="!data"
+                    [disabled]="driverForm.invalid " (click)="addUser()"
+            >
+                Add
+            </button>
+            <button mat-raised-button color="accent" class="submit-button mx-4" aria-label="ADD"  (click)="dialog.closeAll()"
+            >
+                Close
+            </button>
+        </div>
+
+    </div>
+
+</form>

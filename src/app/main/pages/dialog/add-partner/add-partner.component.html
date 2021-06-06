@@ -1,0 +1,42 @@
+<div id="new_branch" class="page-layout ios-scroll simple tabbed partner-dialog">
+
+    <div id="" class="edit-dialog" fxLayout="row wrap">
+        <form name="providerForm" class=" flex-column   my-10" [formGroup]="partnerForm" novalidate>
+            <h1 *ngIf="data">Edit Partner</h1>
+            <h1 *ngIf="!data">New Partner</h1>
+            <div class="new_branch">
+
+
+                <div>
+                    <span class="star">*</span> <input type="file" class="upload-button" accept="image/*" (change)="onUpload($event)"/>
+                    <div class="mt-8 icon" *ngIf="data">
+                        <img [src]="restService.baseUrlFile + data.image" alt="">
+                    </div>
+
+                </div>
+
+                <div class="col-md-12 mt-48">
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="data"
+                            [disabled]="partnerForm.invalid "
+                            (click)="updatePartner()">
+                        Save
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button " aria-label="ADD" *ngIf="!data"
+                            [disabled]="partnerForm.invalid "
+                            (click)="addPartner()">
+                        Add
+                    </button>
+                    <button mat-raised-button color="accent" class="submit-button mx-8" aria-label="ADD"
+                            (click)="close()">
+                        Close
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div>

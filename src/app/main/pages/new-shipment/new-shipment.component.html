@@ -1,0 +1,390 @@
+<div class="page-layout ios-scroll simple tabbedm p-16 " id="deals">
+
+    <div id="" class="" fxLayout="row wrap">
+
+        <div class="w-100-p mb-4">
+            <h1>User Information</h1>
+            <form [formGroup]="userForm" class="w-100-p">
+                <div class="d-flex">
+                    <mat-form-field appearance="legacy" class="w-100-p mx-16">
+                        <mat-label>First Name</mat-label>
+                        <input matInput placeholder="" formControlName="first_name">
+                        <mat-icon matSuffix>sentiment_satisfied_alt</mat-icon>
+                        <mat-error>
+                            first name is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="legacy" class="w-100-p mx-16">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput placeholder="" formControlName="last_name">
+                        <mat-icon matSuffix>sentiment_satisfied_alt</mat-icon>
+                        <mat-error>
+                            last name is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="d-flex">
+                    <mat-form-field appearance="legacy" class="w-100-p mx-16">
+                        <mat-label>Email (Optional)</mat-label>
+                        <input matInput placeholder="" formControlName="email">
+                        <mat-icon matSuffix>alternate_email</mat-icon>
+                        <mat-error>
+                            <div *ngIf="u.email.invalid && (u.email.dirty || u.email.touched)"
+                                 class="text-danger">
+                                <div *ngIf="u.email.errors.email">Email Not Valid</div>
+                            </div>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-100-p mx-16">
+                        <mat-label>Mobile</mat-label>
+                        <span matPrefix>+971 &nbsp;</span>
+                        <input type="tel" matInput placeholder="554 5***" formControlName="phone" maxlength="9">
+                        <mat-icon matSuffix>mode_edit</mat-icon>
+                        <mat-error>
+                            Mobile is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+        <h1 class="w-100-p">Shipment Information</h1>
+
+        <div class="my-16 d-flex ">
+            <div class="mx-8">
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="icon">
+                            <span class="mx-2">Pickup Address</span>
+                            <mat-icon class="mx-8 primary-color"
+                                      *ngIf="(StartAddress.valid && startAddress.type.value == '1' )|| StartAddress.valid && startAddress.type.value !== 1 && startAddress.apartment.value && startAddress.floor.value">
+                                check_circle
+                            </mat-icon>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <div class="w-100-p position-relative mb-32">
+                            <div>
+                                <img src="assets/images/logos/map.PNG" class="w-100-p" alt="">
+                            </div>
+                            <div class="position-absolute select-location ">
+                                <button aria-label="EDIT" class="submit-button float-right add-button" color="accent"
+                                        mat-raised-button
+                                        [ngClass]="startAddress.lng.value && startAddress.lat.value? 'btn-primary' : 'btn-secondary'"
+                                        (click)="openMap('from')">
+                                                    <span
+                                                        *ngIf="!startAddress.lng.value || !startAddress.lat.value">Select Location</span>
+                                    <span
+                                        *ngIf="startAddress.lng.value && startAddress.lat.value ">Update Location</span>
+                                </button>
+                            </div>
+                        </div>
+                        <form [formGroup]="StartAddress" class="px-3  " *ngIf="startAddress.lng.value && startAddress.lat.value">
+                            <div class="d-flex mt-5">
+                                <mat-radio-group aria-label="Select an option" formControlName="type">
+                                    <mat-radio-button value="2" class="mx-4">Apartment</mat-radio-button>
+                                    <mat-radio-button value="1" class="mx-4">House</mat-radio-button>
+                                    <mat-radio-button value="3" class="mx-4">Office</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <mat-form-field class="w-100-p mt-3">
+                                <mat-label>Phone Number</mat-label>
+                                <input matInput placeholder="55123****" formControlName="phone" type="tel" minLength="9"
+                                       maxlength="9">
+                                <mat-error *ngIf="StartAddress.get('phone').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p">
+                                <mat-label>Select City</mat-label>
+                                <mat-select formControlName="city" (selectionChange)="f.cost.setValue(''); ">
+                                    <mat-option *ngFor="let item of cities" [value]="item._id"
+                                                (click)="c.from.setValue(item._id)">
+                                        {{item.title}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="StartAddress.get('city').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p">
+                                <mat-label>Area</mat-label>
+                                <input matInput formControlName="area">
+                                <mat-error *ngIf="StartAddress.get('area').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p">
+                                <mat-label>Street</mat-label>
+                                <input matInput formControlName="street">
+                                <mat-error *ngIf="StartAddress.get('street').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p">
+                                <mat-label>Building</mat-label>
+                                <input matInput formControlName="building">
+                                <mat-error *ngIf="StartAddress.get('building').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p" *ngIf="startAddress.type.value != 1">
+                                <mat-label>Floor</mat-label>
+                                <input matInput type="text" formControlName="floor">
+                            </mat-form-field>
+                            <div *ngIf=" (startAddress.floor.dirty || startAddress.floor.touched) "
+                                 class="text-danger">
+                                <div
+                                    *ngIf="startAddress.type.value != 1 && startAddress.floor.value.length == 0">This
+                                    Filed is required
+                                </div>
+                            </div>
+                            <mat-form-field class="w-100-p" *ngIf="startAddress.type.value != 1">
+                                <mat-label>Apartmen NO</mat-label>
+                                <input matInput type="text" formControlName="apartment">
+                            </mat-form-field>
+                            <div *ngIf=" (startAddress.apartment.dirty || startAddress.apartment.touched) "
+                                 class="text-danger text-primary">
+                                <div
+                                    *ngIf="startAddress.type.value != 1 && startAddress.apartment.value.length == 0">
+                                    This Filed is required
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </mat-expansion-panel>
+            </div>
+            <div class="mx-8">
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="icon">
+                            <span class="mx-2">Drop Off Address</span>
+                            <mat-icon class="mx-8 primary-color"
+                                      *ngIf="(endAddress.valid && toAddress.type.value == '1') || endAddress.valid && toAddress.type.value != 1 && toAddress.apartment.value && toAddress.floor.value">
+                                check_circle
+                            </mat-icon>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div>
+                        <div class="w-100-p position-relative mb-32">
+                            <div>
+                                <img src="assets/images/logos/map.PNG" class="w-100-p" alt="">
+                            </div>
+                            <div class="position-absolute select-location ">
+                                <button aria-label="EDIT" class="submit-button float-right add-button" color="accent"
+                                        mat-raised-button
+                                        [ngClass]="toAddress.lng.value && toAddress.lat.value? 'btn-primary' : 'btn-secondary'"
+                                        (click)="openMap('to')">
+                                                    <span
+                                                        *ngIf="!toAddress.lng.value || !toAddress.lat.value">Select Location</span>
+                                    <span
+                                        *ngIf="toAddress.lng.value && toAddress.lat.value ">Update Location</span>
+                                </button>
+                            </div>
+                        </div>
+                        <form [formGroup]="endAddress" class="px-3  " *ngIf="toAddress.lng.value && toAddress.lat.value">
+                            <div class="d-flex mt-5">
+                                <mat-radio-group aria-label="Select an option" formControlName="type">
+                                    <mat-radio-button value="2" class="mx-4">Apartment</mat-radio-button>
+                                    <mat-radio-button value="1" class="mx-4">House</mat-radio-button>
+                                    <mat-radio-button value="3" class="mx-4">Office</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+
+                            <mat-form-field class="w-100-p mt-3">
+                                <mat-label>Phone Number</mat-label>
+                                <input matInput placeholder="55123****" formControlName="phone" type="tel" minLength="9"
+                                       maxlength="9">
+                                <mat-error *ngIf="endAddress.get('phone').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p">
+                                <mat-label>Select City</mat-label>
+                                <mat-select formControlName="city" (selectionChange)="f.cost.setValue(''); ">
+                                    <mat-option *ngFor="let item of cities" [value]="item._id"
+                                                (click)="c.to.setValue(item._id)">
+                                        {{item.title}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="endAddress.get('city').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p">
+                                <mat-label>Area</mat-label>
+                                <input matInput formControlName="area">
+                                <mat-error *ngIf="endAddress.get('area').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p">
+                                <mat-label>Street</mat-label>
+                                <input matInput formControlName="street">
+                                <mat-error *ngIf="endAddress.get('street').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p">
+                                <mat-label>Building</mat-label>
+                                <input matInput formControlName="building">
+                                <mat-error *ngIf="endAddress.get('building').hasError('required')">
+                                    This Filed is required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="w-100-p" *ngIf="toAddress.type.value != 1">
+                                <mat-label>Floor</mat-label>
+                                <input matInput type="text" formControlName="floor">
+                            </mat-form-field>
+                            <div *ngIf=" (toAddress.floor.dirty || toAddress.floor.touched) "
+                                 class="text-danger">
+                                <div
+                                    *ngIf="toAddress.type.value != 1 && toAddress.floor.value.length == 0">This
+                                    Filed is required
+                                </div>
+                            </div>
+                            <mat-form-field class="w-100-p" *ngIf="toAddress.type.value != 1">
+                                <mat-label>Apartmen NO</mat-label>
+                                <input matInput type="text" formControlName="apartment">
+                            </mat-form-field>
+                            <div *ngIf=" (toAddress.apartment.dirty || toAddress.apartment.touched) "
+                                 class="text-danger text-primary">
+                                <div
+                                    *ngIf="toAddress.type.value != 1 && toAddress.apartment.value.length == 0">
+                                    This Filed is required
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </mat-expansion-panel>
+            </div>
+        </div>
+        <div>
+            <div class="d-flex w-100-p ">
+                <div class="w-100-p m-16" *ngFor="let item of categories">
+                    <mat-accordion multi>
+                        <mat-expansion-panel class="my-2 bg-success" [expanded]="true">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <img [src]="appService.fileUrl + item.icon" alt=""> <span
+                                    class="mx-1">{{item.title}}</span>
+                                </mat-panel-title>
+                                <mat-panel-description class="mx-2">
+                                    Up To {{item.weight}} kg
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <ng-container *ngFor="let sub of item.SubCategories">
+                                <div class="d-flex justify-content-between border-bottom py-1"
+                                     (click)="c.category.setValue(item._id)  ;f.subCategory.setValue(sub._id); f.other.setValue(sub.other)  ; f.cost.setValue('')">
+                                    <div class="sub-cat">
+                                        <p class="text-left mb-1" style="cursor: pointer"><img
+                                            [src]="appService.fileUrl + sub.icon" alt="" class="mr-4">
+                                            <span>{{sub.title}}</span>
+                                        </p>
+                                    </div>
+                                    <div class="bg-white radius-8 p-1 check">
+                                        <div class="rounded-circle   m-auto"
+                                             [ngClass]="f.subCategory.value == sub._id? 'bg-primary' : 'bg-success'"></div>
+                                    </div>
+                                </div>
+                                <div class="w-100-p" *ngIf="sub.other == 1 && f.subCategory.value === sub._id"><textarea
+                                    type="text"
+                                    class="mt-8 w-100-p radius-8 p-2"
+                                    (keyup)="f.comments.setValue($event.target.value)"
+                                    rows="3"
+                                    [value]="f.comments.value"
+                                    placeholder="What Do You Want To Ship"></textarea>
+                                </div>
+                            </ng-container>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+
+            </div>
+            <div class="row bg-shipment py-5">
+                <div>
+                    <h4 class="m-0" >Payment Method</h4>
+                    <span class="primary-color">Please mention whether the parcel cost & delivery cost are paid or need to be collected by the delivery company </span>
+                </div>
+                <form [formGroup]="addCostForm" class="col-12 d-flex ">
+                    <div style="margin-right: 200px;">
+                        <h4 class="" >Parcel/Product Payment</h4>
+                        <mat-radio-group aria-label="Select an option" formControlName="cost">
+                            <mat-radio-button value="Prepaid" class="mx-4">Prepaid</mat-radio-button>
+                            <mat-radio-button value="cod" class="mx-4">COD</mat-radio-button>
+                        </mat-radio-group>
+                        <input type="number" class="costValue" required *ngIf="addCostForm.get('cost').value == 'cod'"formControlName="costValue" >
+                    </div>
+                    <div>
+                        <h4 class="" >Delivery Payment</h4>
+                        <mat-radio-group aria-label="Select an option" formControlName="other">
+                            <mat-radio-button value="Prepaid" class="mx-4">Prepaid</mat-radio-button>
+                            <mat-radio-button value="cod" class="mx-4">COD</mat-radio-button>
+                        </mat-radio-group>
+                        <input type="number" class="costValue" required *ngIf="addCostForm.get('other').value == 'cod'"formControlName="otherValue" >
+                    </div>
+                </form>
+            </div>
+            
+
+            <div class="row mt-16 d-flex justify-content-between text-center">
+                <div class="w-50-p weight" dir="ltr">
+                    <p class="font-weight-normal text-uppercase">Total Weight <span
+                        class="text-primary">(Optional)</span></p>
+                    <div class="input-group mb-3">
+                        <input type="number" class=" h-2 w-50-p mx-8" min="0" [value]="f.weight.value"
+                               (change)="f.weight.setValue($event.target.value)"><span>KG</span>
+
+                    </div>
+                </div>
+                <div class="w-50-p mt-32">
+                    <button aria-label="EDIT" class="submit-button  w-100-p add-button" color="accent"
+                            mat-raised-button
+                            [disabled]="StartAddress.invalid || endAddress.invalid || userForm.invalid  ||(f.other.value === 1 && !f.comments.value) ||addCostForm.invalid"
+                            (click)=" sendOTPGuest()">Calculate
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row bg-shipment py-5"
+             *ngIf="f.cost.value"  >
+            <div class="container bg-white radius-15 ">
+                <div class="row">
+                    <div class="col-md-12 px-16 text-uppercase text-center bg-primary ">
+                        <h3 class="text-white py-16"> Your Shipment</h3>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="   mx-16" *ngFor="let item of types" style="cursor: pointer">
+                            <div class="radius-15  d-flex justify-content-between p-3 p-16"
+                                 (click)="f.type.setValue(item._id)"
+                                 [ngClass]="f.type.value == item._id ? 'active-type' : 'unactive-type'">
+                                <div class="duration text-center radius-15 m-auto p-2">
+                                    <img [src]="appService.fileUrl + item.image" alt="" class="w-50-p h-auto">
+                                    <p>{{item.duration}}</p>
+                                </div>
+                                <div class="p-2 price m-auto">
+                                    <p>{{item.title}}</p>
+                                    <h6>{{item.price + f.cost.value}} AED</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="  text-center my-16 ">
+
+                            <button aria-label="EDIT" class="submit-button   add-button" color="accent"
+                                    mat-raised-button
+                                (click)="sendOTPGuest()"
+                                [disabled]="  !f.cost.value || !f.type.value || userForm.invalid">
+                                Proceed With Payment
+                            </button>
+
+
+                        </div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</div>
