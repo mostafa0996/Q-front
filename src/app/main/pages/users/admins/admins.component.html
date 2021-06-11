@@ -1,101 +1,138 @@
 <div id="new_branch" class="page-layout ios-scroll simple tabbed">
-
-
-    <div id="" class="p-24" fxLayout="row wrap">
-        <div class="w-100-p filter-search ">
-            <div class="filter ">
-                <div class="">
-                    <mat-form-field class=" ">
-                        <input (keyup)="search($event.target.value)" matInput
-                               placeholder="Search By Title" class="">
-                    </mat-form-field>
-                </div>
-            </div>
-            <div>
-                <button aria-label="EDIT" class="submit-button float-right add-button" color="accent" mat-raised-button
-                        (click)="openDialog()">
-                    <img class="icone-plus " src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New admin
-                </button>
-            </div>
+  <div id="" class="p-24" fxLayout="row wrap">
+    <div class="w-100-p filter-search">
+      <div class="filter">
+        <div class="">
+          <mat-form-field class="">
+            <input
+              (keyup)="search($event.target.value)"
+              matInput
+              placeholder="Search By Title"
+              class=""
+            />
+          </mat-form-field>
         </div>
-        <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table>
-
-            <!-- Position Column -->
-
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="first_name">
-                <th *matHeaderCellDef mat-header-cell> First name</th>
-                <td *matCellDef="let element" mat-cell> {{element.first_name}} </td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="last_name">
-                <th *matHeaderCellDef mat-header-cell> Last name</th>
-                <td *matCellDef="let element" mat-cell> {{element.last_name}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="email">
-                <th *matHeaderCellDef mat-header-cell> Email</th>
-                <td *matCellDef="let element" mat-cell> {{element.email}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="phone">
-                <th *matHeaderCellDef mat-header-cell> Phone</th>
-                <td *matCellDef="let element" mat-cell> {{element.phone}} </td>
-            </ng-container>
-
-
-
-            <ng-container matColumnDef="active">
-                <th *matHeaderCellDef mat-header-cell> Status</th>
-                <td *matCellDef="let element" mat-cell>
-                    <span class="unactive"  *ngIf="element.active == 0">Inactive</span>
-                    <span class="active"  *ngIf="element.active == 1">Active</span>
-                    <span class="block"  *ngIf="element.active == 2">Blocked</span>
-                </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="action" class="action">
-                <th *matHeaderCellDef mat-header-cell> Action</th>
-                <td *matCellDef="let element" mat-cell class="py-8 action">
-
-                    <img src="assets/icons/table/inactive.png" aria-label="details" *ngIf="element.active == 1" class=" mx-4 my-4" color="accent" title="inactive"
-                             (click)="confirmeActiveBlock(element , 0)">
-
-                    <img src="assets/icons/table/active.png" aria-label="details" *ngIf="element.active == 0" class=" mx-4 my-4" color="accent" title="active"
-                            (click)="confirmeActiveBlock(element , 1)">
-
-
-                    <img src="assets/icons/table/edit.png" aria-label="details"  class=" mx-4 my-4" color="accent" title="edit"
-                             (click)="editDialog(element)">
-
-                    <img src="assets/icons/table/delete.png" aria-label="details"  class=" mx-4 my-4" color="accent" title="delete"
-                             (click)="deleteAccount(element)">
-
-                    <img src="assets/icons/table/permission.png"  aria-label="details"  class="action  mx-4 my-4" color="accent" alt="permission" title="permission"
-                             (click)="permissions(element)">
-
-                </td>
-            </ng-container>
-
-            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-
-        </table>
-
-        <mat-paginator class="w-100-p" [length]="length" [pageSizeOptions]="[10,25,50,100,200]"(click)="getUsers()"
-                       [pageSize]="pagination.limit"
-                       (page)="pageEvent = $event;getUsers()"
-
+      </div>
+      <div>
+        <button
+          aria-label="EDIT"
+          class="submit-button float-right add-button"
+          color="accent"
+          mat-raised-button
+          (click)="openDialog()"
         >
-        </mat-paginator>
-
-
-
+          <img
+            class="icone-plus"
+            src="https://img.icons8.com/ultraviolet/40/000000/add.png"
+          />
+          Add New admin
+        </button>
+      </div>
     </div>
+    <table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 table-responsive w-100-p p-16"
+      mat-table
+    >
+      <!-- Position Column -->
 
+      <!-- Name Column -->
+      <ng-container matColumnDef="first_name">
+        <th *matHeaderCellDef mat-header-cell>First name</th>
+        <td *matCellDef="let element" mat-cell>{{ element.first_name }}</td>
+      </ng-container>
 
+      <ng-container matColumnDef="last_name">
+        <th *matHeaderCellDef mat-header-cell>Last name</th>
+        <td *matCellDef="let element" mat-cell>{{ element.last_name }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="email">
+        <th *matHeaderCellDef mat-header-cell>Email</th>
+        <td *matCellDef="let element" mat-cell>{{ element.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th *matHeaderCellDef mat-header-cell>Phone</th>
+        <td *matCellDef="let element" mat-cell>{{ element.phone }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="active">
+        <th *matHeaderCellDef mat-header-cell>Status</th>
+        <td *matCellDef="let element" mat-cell>
+          <span class="unactive" *ngIf="element.active == 0">Inactive</span>
+          <span class="active" *ngIf="element.active == 1">Active</span>
+          <span class="block" *ngIf="element.active == 2">Blocked</span>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="action" class="action">
+        <th *matHeaderCellDef mat-header-cell>Action</th>
+        <td *matCellDef="let element" mat-cell class="py-8 action">
+          <img
+            src="assets/icons/table/inactive.png"
+            aria-label="details"
+            *ngIf="element.active == 1"
+            class="mx-4 my-4"
+            color="accent"
+            title="inactive"
+            (click)="confirmeActiveBlock(element, 0)"
+          />
+
+          <img
+            src="assets/icons/table/active.png"
+            aria-label="details"
+            *ngIf="element.active == 0"
+            class="mx-4 my-4"
+            color="accent"
+            title="active"
+            (click)="confirmeActiveBlock(element, 1)"
+          />
+
+          <img
+            src="assets/icons/table/edit.png"
+            aria-label="details"
+            class="mx-4 my-4"
+            color="accent"
+            title="edit"
+            (click)="editDialog(element)"
+          />
+
+          <img
+            src="assets/icons/table/delete.png"
+            aria-label="details"
+            class="mx-4 my-4"
+            color="accent"
+            title="delete"
+            (click)="deleteAccount(element)"
+          />
+
+          <img
+            src="assets/icons/table/permission.png"
+            aria-label="details"
+            class="action mx-4 my-4"
+            color="accent"
+            alt="permission"
+            title="permission"
+            (click)="permissions(element)"
+          />
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+    </table>
+
+    <mat-paginator
+      class="w-100-p"
+      [length]="length"
+      [pageSizeOptions]="[10, 25, 50, 100, 200]"
+      (click)="getUsers()"
+      [pageSize]="pagination.limit"
+      (page)="pageEvent = $event; getUsers()"
+    >
+    </mat-paginator>
+  </div>
 </div>

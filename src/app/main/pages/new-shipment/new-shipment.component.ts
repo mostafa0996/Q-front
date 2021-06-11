@@ -116,7 +116,7 @@ export class NewShipmentComponent implements OnInit {
         this.userForm = this.fb.group({
             first_name: ['', Validators.required],
             last_name: ['', Validators.required],
-            email: ['', [Validators.email]],
+            email: ['', [Validators.email, Validators.required]],
             phone: ['', [Validators.required, Validators.minLength(9), Validators.pattern(/^[1-9][0-9]*$/)]],
         });
 
@@ -204,6 +204,7 @@ export class NewShipmentComponent implements OnInit {
         this.addCostForm.get('cost').value  == 'cod' ? this.calculatorForm.get('cost').setValue(this.addCostForm.get('costValue').value) : this.calculatorForm.get('cost').setValue(0);
         this.addCostForm.get('other').value  == 'cod' ? this.calculatorForm.get('other').setValue(this.addCostForm.get('otherValue').value) : this.calculatorForm.get('other').setValue(0);
         let guest = new ShipmentGuestModel();
+        this.calculatorForm.value.type= '5fa3d7169ecae064fec085e6';
         guest.from = this.StartAddress.value;
         guest.to = this.endAddress.value;
         guest.shipment = this.calculatorForm.value;
@@ -217,11 +218,11 @@ export class NewShipmentComponent implements OnInit {
                 if (result) {
                     window.scroll(0 ,0);
                     this.toastr.success('Your Shipment Sent Successfully', '');
-                    this.calculatorForm.reset();
-                    this.StartAddress.reset();
-                    this.endAddress.reset();
-                    this.costForm.reset();
-                    this.userForm.reset();
+                    // this.calculatorForm.reset();
+                    // this.StartAddress.reset();
+                    // this.endAddress.reset();
+                    // this.costForm.reset();
+                    // this.userForm.reset();
                 }
             });
 

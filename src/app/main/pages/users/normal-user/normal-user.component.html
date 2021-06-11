@@ -1,101 +1,124 @@
 <div id="new_branch" class="page-layout ios-scroll simple tabbed">
-
-    <div id="" class="p-24" fxLayout="row wrap">
-        <div class="w-100-p filter-search">
-            <mat-form-field class="w-30-p p-16">
-                <input (keyup)="search($event.target.value)" matInput placeholder="Search">
-            </mat-form-field>
-            <div>
-
-            </div>
-            <div class="d-flex">
-                <button aria-label="EDIT" class="submit-button float-right mx-8 add-button" color="accent"
-                        mat-raised-button
-                        (click)="openDialog()">
-                    <img class="icone-plus " src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New User
-                </button>
-                <app-export-excel [type]="'normal'"></app-export-excel>
-            </div>
-        </div>
-        <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="first_name">
-                <th *matHeaderCellDef mat-header-cell> First name</th>
-                <td *matCellDef="let element" mat-cell> {{element.first_name}} </td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="last_name">
-                <th *matHeaderCellDef mat-header-cell> Last name</th>
-                <td *matCellDef="let element" mat-cell> {{element.last_name}} </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="email">
-                <th *matHeaderCellDef mat-header-cell> Email</th>
-                <td *matCellDef="let element" mat-cell> {{element.email}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="phone">
-                <th *matHeaderCellDef mat-header-cell> Phone</th>
-                <td *matCellDef="let element" mat-cell> {{element.phone}} </td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="active">
-                <th *matHeaderCellDef mat-header-cell> Status</th>
-                <td *matCellDef="let element" mat-cell>
-                    <span class="unactive" *ngIf="element.active == 0">Inactive</span>
-                    <span class="active" *ngIf="element.active == 1">Active</span>
-                    <span class="block" *ngIf="element.active == 2">Blocked</span>
-                </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="action">
-                <th *matHeaderCellDef mat-header-cell> Action</th>
-                <td *matCellDef="let element" mat-cell class="py-8 action">
-
-                    <img src="assets/icons/table/inactive.png" aria-label="details" *ngIf="element.active == 1"
-                         title="inactive"
-                         class=" mx-4 my-4"
-                         color="accent"
-                         (click)="confirmeActiveBlock(element , 0)">
-
-                    <img aria-label="details" src="assets/icons/table/active.png" *ngIf="element.active == 0"
-                         title="active"
-                         class="submit-button mx-4 my-4"
-                         color="accent"
-                         (click)="confirmeActiveBlock(element , 1)">
-
-                    <img src="assets/icons/table/delete.png" aria-label="details" class=" mx-4 my-4" title="delete"
-                         color="accent"
-                         (click)="deleteAccount(element)">
-
-                    <img src="assets/icons/table/shipments.png" aria-label="details" class=" mx-4 my-4"
-                         title="Shipments"
-                         color="accent"
-                         [routerLink]="'/pages/orders/0/'  + element._id">
-
-
-                </td>
-            </ng-container>
-
-            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
-            <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
-
-        </table>
-
-        <mat-paginator class="w-100-p"
-                       [pageSize]="10"
-                       [pageSizeOptions]="[10,25,50,100,200]"
-                       [showFirstLastButtons]="true"
+  <div id="" class="p-24" fxLayout="row wrap">
+    <div class="w-100-p filter-search">
+      <mat-form-field class="w-30-p p-16">
+        <input
+          (keyup)="search($event.target.value)"
+          matInput
+          placeholder="Search"
+        />
+      </mat-form-field>
+      <div></div>
+      <div class="d-flex">
+        <button
+          aria-label="EDIT"
+          class="submit-button float-right mx-8 add-button"
+          color="accent"
+          mat-raised-button
+          (click)="openDialog()"
         >
-        </mat-paginator>
-
-
+          <img
+            class="icone-plus"
+            src="https://img.icons8.com/ultraviolet/40/000000/add.png"
+          />
+          Add New User
+        </button>
+        <app-export-excel [type]="'normal'"></app-export-excel>
+      </div>
     </div>
+    <table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 table-responsive w-100-p p-16"
+      mat-table
+    >
+      <!-- Name Column -->
+      <ng-container matColumnDef="first_name">
+        <th *matHeaderCellDef mat-header-cell>First name</th>
+        <td *matCellDef="let element" mat-cell>{{ element.first_name }}</td>
+      </ng-container>
 
+      <ng-container matColumnDef="last_name">
+        <th *matHeaderCellDef mat-header-cell>Last name</th>
+        <td *matCellDef="let element" mat-cell>{{ element.last_name }}</td>
+      </ng-container>
 
+      <!-- Weight Column -->
+      <ng-container matColumnDef="email">
+        <th *matHeaderCellDef mat-header-cell>Email</th>
+        <td *matCellDef="let element" mat-cell>{{ element.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th *matHeaderCellDef mat-header-cell>Phone</th>
+        <td *matCellDef="let element" mat-cell>{{ element.phone }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="active">
+        <th *matHeaderCellDef mat-header-cell>Status</th>
+        <td *matCellDef="let element" mat-cell>
+          <span class="unactive" *ngIf="element.active == 0">Inactive</span>
+          <span class="active" *ngIf="element.active == 1">Active</span>
+          <span class="block" *ngIf="element.active == 2">Blocked</span>
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="action">
+        <th *matHeaderCellDef mat-header-cell>Action</th>
+        <td *matCellDef="let element" mat-cell class="py-8 action">
+          <img
+            src="assets/icons/table/inactive.png"
+            aria-label="details"
+            *ngIf="element.active == 1"
+            title="inactive"
+            class="mx-4 my-4"
+            color="accent"
+            (click)="confirmeActiveBlock(element, 0)"
+          />
+
+          <img
+            aria-label="details"
+            src="assets/icons/table/active.png"
+            *ngIf="element.active == 0"
+            title="active"
+            class="submit-button mx-4 my-4"
+            color="accent"
+            (click)="confirmeActiveBlock(element, 1)"
+          />
+
+          <img
+            src="assets/icons/table/delete.png"
+            aria-label="details"
+            class="mx-4 my-4"
+            title="delete"
+            color="accent"
+            (click)="deleteAccount(element)"
+          />
+
+          <img
+            src="assets/icons/table/shipments.png"
+            aria-label="details"
+            class="mx-4 my-4"
+            title="Shipments"
+            color="accent"
+            [routerLink]="'/pages/orders/0/' + element._id"
+          />
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+    </table>
+
+    <mat-paginator
+      class="w-100-p"
+      [pageSize]="pagination.limit"
+      [length]="length"
+      [pageSizeOptions]="[10, 25, 50, 100, 200]"
+      [showFirstLastButtons]="true"
+      (click)="getUsers()"
+      (page)="pageEvent = $event; getUsers()"
+    >
+    </mat-paginator>
+  </div>
 </div>
