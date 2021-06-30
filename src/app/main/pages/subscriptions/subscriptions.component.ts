@@ -10,8 +10,6 @@ import {PaginationModel} from "../../../../models/pagination.model";
 import {PageEvent} from "@angular/material/paginator";
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-
-
 @Component({
   selector: 'app-subscriptions',
   templateUrl: './subscriptions.component.html',
@@ -42,6 +40,16 @@ export class SubscriptionsComponent implements OnInit {
         this.pagination.limit = 20 ;
     }
 
+    get f() {
+        return this.filterForm.controls;
+    }
+    
+    prepareForm() {
+        this.filterForm = this.fb.group({
+            startDate: [''],
+            endDate: [''],
+        });
+    }
 
     applyFilter() {
         
@@ -49,9 +57,6 @@ export class SubscriptionsComponent implements OnInit {
         this.f.endDate.value ? this.pagination.endDate = this.datePipe.transform(this.f.endDate.value, 'yyyy-MM-dd'): null;
         this.getScubscritopne();
     }
-
-
-
 
     getScubscritopne() {
         if (this.pageEvent) {
@@ -72,15 +77,7 @@ export class SubscriptionsComponent implements OnInit {
             }
         });
     }
-    get f() {
-        return this.filterForm.controls;
-    }
-    prepareForm() {
-        this.filterForm = this.fb.group({
-            startDate: [''],
-            endDate: [''],
-        });
-    }
+    
     ngOnInit() {
         this.getScubscritopne();
         this.prepareForm();

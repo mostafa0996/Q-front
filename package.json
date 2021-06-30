@@ -3,7 +3,7 @@
     "version": "8.0.0",
     "license": "https://themeforest.net/licenses/terms/regular",
     "scripts": {
-        "ng": "ng",
+        "ng": "ng build",
         "start": "ng serve --open",
         "startSSL": "ng serve --ssl true --ssl-cert ./ssl/server.crt --ssl-key ./ssl/server.key",
         "start-hmr": "ng serve --configuration hmr --source-map=false --hmr-warning=false",

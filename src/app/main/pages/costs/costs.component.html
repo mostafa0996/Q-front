@@ -2,12 +2,24 @@
     <h1>Cost</h1>
     <div class="w-100-p">
         <mat-form-field class="w-25-p p-16 filter">
-            <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Search By Title">
+            <input (keyup)="applyFilter($event.target.value)" matInput placeholder="From">
+        </mat-form-field>
+
+        <mat-form-field class="w-25-p p-16 filter">
+            <input (keyup)="applyFilter($event.target.value)" matInput placeholder="To">
+        </mat-form-field>
+
+        <mat-form-field class="w-25-p p-16 filter">
+            <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Category">
+        </mat-form-field>
+
+        <mat-form-field class="w-25-p p-16 filter">
+            <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Cost">
         </mat-form-field>
 
         <button aria-label="EDIT" class="submit-button float-right add-button" color="accent" mat-raised-button
                 (click)="openAddDialog()">
-            <img src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Country
+            <img src="https://img.icons8.com/ultraviolet/40/000000/add.png"> Add New Cost
         </button>
     </div>
     <table [dataSource]="dataSource" class="mat-elevation-z8 table-responsive w-100-p p-16" mat-table>

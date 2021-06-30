@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from "../../../../services/data.service";
-import {ActivatedRoute} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
-import {ToastrService} from "ngx-toastr";
-import {CostModel} from "../../../../models/cost.model";
-import {HttpErrorResponse} from "@angular/common/http";
-import {MatTableDataSource} from "@angular/material/table";
+import { DataService } from "../../../../services/data.service";
+import { ActivatedRoute } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { ToastrService } from "ngx-toastr";
+import { CostModel } from "../../../../models/cost.model";
+import { HttpErrorResponse } from "@angular/common/http";
+import { MatTableDataSource } from "@angular/material/table";
 import Swal from "sweetalert2";
-import {BannerModel} from "../../../../models/banner.model";
-import {EditBannerComponent} from "../dialog/edit-banner/edit-banner.component";
-import {EditCostComponent} from "../dialog/edit-cost/edit-cost.component";
+import { BannerModel } from "../../../../models/banner.model";
+import { EditBannerComponent } from "../dialog/edit-banner/edit-banner.component";
+import { EditCostComponent } from "../dialog/edit-cost/edit-cost.component";
+import { filter } from 'lodash';
 
 @Component({
-  selector: 'app-costs',
-  templateUrl: './costs.component.html',
-  styleUrls: ['./costs.component.scss']
+    selector: 'app-costs',
+    templateUrl: './costs.component.html',
+    styleUrls: ['./costs.component.scss']
 })
 export class CostsComponent implements OnInit {
 
 
-    displayedColumns: string[] = [ 'from', 'to' , 'category', 'cost' , 'action'];
+    displayedColumns: string[] = ['from', 'to', 'category', 'cost', 'action'];
     dataSource: any;
     page = 0;
     length: number;
@@ -27,15 +28,25 @@ export class CostsComponent implements OnInit {
 
 
     constructor(public restService: DataService,
-                private activatedRoute: ActivatedRoute,
-                private dialog: MatDialog,
-                private toastr: ToastrService) {
+        private activatedRoute: ActivatedRoute,
+        private dialog: MatDialog,
+        private toastr: ToastrService) {
 
     }
 
 
     applyFilter(filterValue: string) {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+        // this.dataSource.filter = filterValue.trim().toLowerCase();
+        if(filterValue == ''){
+            this.getCosts()
+        }
+        const data = this.dataSource.filteredData.filter(ele => {
+            return ele.cost.includes(filterValue.trim()) ||
+                ele.fromObj.title_en.includes(filterValue.trim()) ||
+                ele.toObj.title_en.includes(filterValue.trim()) ||
+                ele.categoryObj.title_en.includes(filterValue.trim())
+        });
+        this.dataSource = new MatTableDataSource(data)
     }
 
 
@@ -92,7 +103,7 @@ export class CostsComponent implements OnInit {
             });
     }
 
-    openEditDialog(data: CostModel){
+    openEditDialog(data: CostModel) {
         let dialog = this.dialog.open(EditCostComponent);
         dialog.componentInstance.data = data;
         dialog.afterClosed().subscribe(result => {
